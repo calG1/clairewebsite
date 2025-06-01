@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claire Gilbertson - Softball Showcase</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .hero-bg {
+            background-image: url('https://placehold.co/1200x600/CCCCCC/FFFFFF?text=Claire+Softball+Action+Placeholder'); /* Placeholder for a dynamic action shot */
+            background-size: cover;
+            background-position: center;
+        }
+        .stat-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .nav-link {
+            transition: color 0.3s ease;
+        }
+        .nav-link:hover {
+            color: #EF4444; /* Red-600 for hover */
+        }
+        .btn-primary {
+            background-color: #DC2626; /* Red-600 */
+            color: white;
+            transition: background-color 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: #B91C1C; /* Red-700 */
+        }
+        .section-title {
+            border-bottom: 3px solid #EF4444; /* Red-500 */
+            padding-bottom: 0.5rem;
+        }
+        .table-caption {
+            caption-side: bottom;
+            text-align: center;
+            font-size: 0.875rem; /* text-sm */
+            color: #6B7280; /* text-gray-500 */
+            margin-top: 0.5rem; /* mt-2 */
+        }
+        /* Custom scrollbar for better aesthetics if needed, optional */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #DC2626; /* Red-600 */
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #B91C1C; /* Red-700 */
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold text-red-600">Claire Gilbertson</a>
+            <div class="hidden md:flex space-x-4">
+                <a href="#about" class="nav-link text-gray-700 font-semibold">About</a>
+                <a href="#stats" class="nav-link text-gray-700 font-semibold">Stats</a>
+                <a href="#gallery" class="nav-link text-gray-700 font-semibold">Gallery</a>
+                <a href="#videos" class="nav-link text-gray-700 font-semibold">Videos</a>
+                <a href="#contact" class="nav-link text-gray-700 font-semibold">Contact</a>
+            </div>
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="text-gray-700 focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+        </div>
+        <div id="mobile-menu" class="md:hidden hidden bg-white shadow-md">
+            <a href="#about" class="block px-6 py-3 text-gray-700 hover:bg-red-500 hover:text-white">About</a>
+            <a href="#stats" class="block px-6 py-3 text-gray-700 hover:bg-red-500 hover:text-white">Stats</a>
+            <a href="#gallery" class="block px-6 py-3 text-gray-700 hover:bg-red-500 hover:text-white">Gallery</a>
+            <a href="#videos" class="block px-6 py-3 text-gray-700 hover:bg-red-500 hover:text-white">Videos</a>
+            <a href="#contact" class="block px-6 py-3 text-gray-700 hover:bg-red-500 hover:text-white">Contact</a>
+        </div>
+    </nav>
+
+    <header class="hero-bg text-white relative">
+        <div class="absolute inset-0 bg-black opacity-50"></div> <div class="container mx-auto px-6 py-20 md:py-32 text-center relative z-10">
+            <h1 class="text-4xl md:text-6xl font-extrabold uppercase tracking-wider">Claire Gilbertson</h1>
+            <p class="mt-4 text-xl md:text-2xl font-semibold">Class of 2027 | First Base & Corner Outfield</p>
+            <p class="mt-2 text-lg md:text-xl">Driven. Dedicated. Ready to Compete.</p>
+            <a href="#stats" class="mt-8 inline-block btn-primary font-bold py-3 px-8 rounded-lg text-lg uppercase shadow-md hover:shadow-xl transform hover:scale-105 transition-transform duration-300">View My Stats</a>
+        </div>
+    </header>
+
+    <section id="about" class="py-16 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="section-title text-3xl font-bold text-center mb-12 text-red-600">About Claire</h2>
+            <div class="flex flex-col md:flex-row items-center md:space-x-12">
+                <div class="md:w-1/3 mb-8 md:mb-0">
+                    <img src="https://placehold.co/400x500/E2E8F0/4A5568?text=Claire+Portrait" alt="Claire Gilbertson" class="rounded-lg shadow-xl mx-auto" onerror="this.src='https://placehold.co/400x500/E2E8F0/4A5568?text=Photo+Error';">
+                    </div>
+                <div class="md:w-2/3 text-lg">
+                    <p class="mb-4">Claire Gilbertson is a dedicated and passionate softball player aiming to compete at the collegiate level. Graduating in <strong class="text-red-500">2027</strong>, she is entering her junior year of high school in the fall of 2025.</p>
+                    <p class="mb-4">Standing at <strong class="text-red-500">5'11"</strong>, Claire primarily plays <strong class="text-red-500">First Base</strong>, bringing a strong defensive presence to the infield. She also excels as a <strong class="text-red-500">Corner Outfielder</strong>, showcasing a powerful throwing arm.</p>
+                    <p class="mb-4">Her journey in softball began at age 7 (2016), and she has been playing competitive softball since age 10 (2019), continually developing her skills and game IQ.</p>
+                    <p class="mb-4">On offense, Claire is primarily a <strong class="text-red-500">line drive gap-to-gap hitter</strong>. She is actively working on her <strong class="text-red-500">power swing to increase slugging potential</strong> and is also focused on improving her <strong class="text-red-500">agility</strong> for enhanced performance on both sides of the ball.</p>
+                    <p class="mb-4">Academically, Claire is interested in <strong class="text-red-500">Science, Biology, and Animals</strong>, demonstrating a well-rounded profile both on and off the field.</p>
+                    <p class="font-semibold">Claire is committed to her growth as a player and is eager to contribute her talent and hard work to a college softball program.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="stats" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <h2 class="section-title text-3xl font-bold text-center mb-10 text-red-600">Performance Statistics</h2>
+            
+            <div class="mb-12">
+                <h3 class="text-2xl font-semibold text-center text-gray-700 mb-6">Combined Key Stats (High School & Club)</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                    <div class="stat-card bg-white p-8 rounded-xl shadow-lg">
+                        <h4 class="text-4xl font-bold text-red-500">.XXX</h4> <p class="text-gray-600 text-lg mt-2">Batting Average</p>
+                    </div>
+                    <div class="stat-card bg-white p-8 rounded-xl shadow-lg">
+                        <h4 class="text-4xl font-bold text-red-500">.XXX</h4> <p class="text-gray-600 text-lg mt-2">On-base Plus Slugging (OPS)</p>
+                    </div>
+                    <div class="stat-card bg-white p-8 rounded-xl shadow-lg">
+                        <h4 class="text-4xl font-bold text-red-500">XX</h4> <p class="text-gray-600 text-lg mt-2">Doubles</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white p-8 rounded-xl shadow-lg mb-12">
+                <h3 class="text-2xl font-semibold mb-6 text-center text-gray-700">2025 High School Season Stats</h3>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Statistic Category</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Value</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Batting Average</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">.462</td></tr>
+                            <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">OPS</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">1.119</td></tr>
+                            <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Doubles</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">6</td></tr>
+                            <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Games Played</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">XX</td></tr>
+                            <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">At Bats</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">XX</td></tr>
+                            <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Hits</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">XX</td></tr>
+                            <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">RBIs</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">XX</td></tr>
+                            <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Home Runs</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">XX</td></tr>
+                            <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Stolen Bases</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">XX</td></tr>
+                            <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Fielding Percentage</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">.XXX</td></tr>
+                            </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="bg-white p-8 rounded-xl shadow-lg">
+                <h3 class="text-2xl font-semibold mb-6 text-center text-gray-700">Mequon Mayhem Club Stats <span class="text-base font-normal">(Specify Season/Year)</span></h3>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Statistic Category</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Value</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Batting Average</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">.XXX</td></tr>
+                            <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">OPS</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">.XXX</td></tr>
+                            <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Doubles</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">XX</td></tr>
+                            <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Games Played</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">XX</td></tr>
+                            <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">At Bats</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">XX</td></tr>
+                            <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Hits</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">XX</td></tr>
+                            <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">RBIs</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">XX</td></tr>
+                            <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Home Runs</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">XX</td></tr>
+                            <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Stolen Bases</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">XX</td></tr>
+                            <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Fielding Percentage</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">.XXX</td></tr>
+                            </tbody>
+                    </table>
+                </div>
+            </div>
+            <p class="mt-8 text-sm text-gray-500 text-center">More detailed stats or specific season breakdowns available upon request.</p>
+        </div>
+    </section>
+
+    <section id="gallery" class="py-16 bg-white">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="section-title text-3xl font-bold mb-12 text-red-600">Photo Gallery</h2>
+            <p class="text-lg mb-8">Check out action shots and more in Claire's regularly updated photo album.</p>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
+                <div class="rounded-lg overflow-hidden shadow-lg">
+                    <img src="https://placehold.co/600x400/D1D5DB/4B5563?text=Action+Shot+1" alt="Softball action shot 1" class="w-full h-64 object-cover" onerror="this.src='https://placehold.co/600x400/D1D5DB/4B5563?text=Photo+Error';">
+                </div>
+                <div class="rounded-lg overflow-hidden shadow-lg">
+                    <img src="https://placehold.co/600x400/D1D5DB/4B5563?text=Action+Shot+2" alt="Softball action shot 2" class="w-full h-64 object-cover" onerror="this.src='https://placehold.co/600x400/D1D5DB/4B5563?text=Photo+Error';">
+                </div>
+                <div class="rounded-lg overflow-hidden shadow-lg">
+                    <img src="https://placehold.co/600x400/D1D5DB/4B5563?text=Team+Photo" alt="Team photo" class="w-full h-64 object-cover" onerror="this.src='https://placehold.co/600x400/D1D5DB/4B5563?text=Photo+Error';">
+                </div>
+            </div>
+            <a href="YOUR_GOOGLE_PHOTOS_ALBUM_LINK_HERE" target="_blank" rel="noopener noreferrer" class="btn-primary font-bold py-3 px-8 rounded-lg text-lg uppercase shadow-md hover:shadow-xl transform hover:scale-105 transition-transform duration-300">
+                View Full Photo Album
+            </a>
+            <p class="mt-4 text-sm text-gray-500">(Opens in a new tab)</p>
+        </div>
+    </section>
+
+    <section id="videos" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="section-title text-3xl font-bold mb-12 text-red-600">Video Highlights</h2>
+            <p class="text-lg mb-8">See Claire in action with game footage and skills videos.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow-xl">
+                     <iframe src="https://www.youtube.com/embed/VIDEO_ID_1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="w-full h-full"></iframe>
+                </div>
+                <div class="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow-xl">
+                     <iframe src="https://www.youtube.com/embed/VIDEO_ID_2" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="w-full h-full"></iframe>
+                </div>
+            </div>
+             <p class="mt-8 text-sm text-gray-500">More videos available on request.</p>
+        </div>
+    </section>
+
+    <section id="contact" class="py-16 bg-white">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="section-title text-3xl font-bold mb-8 text-red-600">Get In Touch</h2>
+            <p class="text-lg mb-4">Interested in learning more or connecting with Claire?</p>
+            <p class="text-xl font-semibold text-red-500 mb-2">
+                Email: <a href="mailto:YOUR_EMAIL_HERE@example.com" class="hover:underline">YOUR_EMAIL_HERE@example.com</a>
+            </p>
+            <div class="mt-6 text-gray-600">
+                <p><em>Additional contact methods (e.g., phone, recruiting profile links) can be added here.</em></p>
+            </div>
+        </div>
+    </section>
+    
+    <footer class="bg-gray-800 text-white py-8 text-center">
+        <div class="container mx-auto px-6">
+            <p>© <span id="currentYear"></span> Claire Gilbertson Softball. All Rights Reserved.</p>
+            <p class="text-sm mt-1">Showcasing talent and dedication on and off the field.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                // Hide mobile menu on click
+                if (!mobileMenu.classList.contains('hidden')) {
+                    mobileMenu.classList.add('hidden');
+                }
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Set current year in footer
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+    </script>
+
+</body>
+</html>
