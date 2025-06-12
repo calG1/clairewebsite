@@ -18,10 +18,34 @@
         }
         .stat-card {
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            background: #fff;
+            overflow: hidden;
         }
         .stat-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border: 2px solid transparent;
+            border-radius: 0.75rem; /* 12px */
+            background: linear-gradient(to right, #EF4444, #F87171) border-box;
+            -webkit-mask:
+                linear-gradient(#fff 0 0) padding-box, 
+                linear-gradient(#fff 0 0);
+            -webkit-mask-composite: destination-out;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .stat-card:hover::before {
+            opacity: 1;
         }
         .nav-link {
             transition: color 0.3s ease;
@@ -37,31 +61,45 @@
         .btn-primary:hover {
             background-color: #B91C1C; /* Red-700 */
         }
+        .btn-secondary {
+            background-color: #EF4444;
+            color: white;
+            transition: background-color 0.3s ease;
+        }
+        .btn-secondary:hover {
+            background-color: #DC2626;
+        }
         .section-title {
-            border-bottom: 3px solid #EF4444; /* Red-500 */
+            border-bottom: 3px solid #EF4444;
             padding-bottom: 0.5rem;
         }
-        .table-caption {
-            caption-side: bottom;
-            text-align: center;
-            font-size: 0.875rem; /* text-sm */
-            color: #6B7280; /* text-gray-500 */
-            margin-top: 0.5rem; /* mt-2 */
+        .gallery-item .overlay {
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
         }
-        /* Custom scrollbar for better aesthetics if needed, optional */
-        ::-webkit-scrollbar {
-            width: 8px;
+        .gallery-item:hover .overlay {
+            opacity: 1;
         }
-        ::-webkit-scrollbar-track {
-            background: #f1f1f1;
+        .gallery-item img {
+            transition: transform 0.3s ease-in-out;
         }
-        ::-webkit-scrollbar-thumb {
-            background: #DC2626; /* Red-600 */
-            border-radius: 4px;
+        .gallery-item:hover img {
+            transform: scale(1.05);
         }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #B91C1C; /* Red-700 */
+        .schedule-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
         }
+        .player-card {
+            background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
+            border: 1px solid #d1d5db;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #DC2626; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #B91C1C; }
     </style>
 </head>
 <body class="bg-gray-100 text-gray-800">
@@ -71,9 +109,11 @@
             <a href="#" class="text-2xl font-bold text-red-600">Claire Gilbertson</a>
             <div class="hidden md:flex space-x-4">
                 <a href="#about" class="nav-link text-gray-700 font-semibold">About</a>
+                <a href="#awards" class="nav-link text-gray-700 font-semibold">Awards</a>
                 <a href="#stats" class="nav-link text-gray-700 font-semibold">Stats</a>
                 <a href="#gallery" class="nav-link text-gray-700 font-semibold">Gallery</a>
                 <a href="#videos" class="nav-link text-gray-700 font-semibold">Videos</a>
+                <a href="#schedule" class="nav-link text-gray-700 font-semibold">Schedule</a>
                 <a href="#contact" class="nav-link text-gray-700 font-semibold">Contact</a>
             </div>
             <div class="md:hidden">
@@ -83,16 +123,19 @@
             </div>
         </div>
         <div id="mobile-menu" class="md:hidden hidden bg-white shadow-md">
-            <a href="#about" class="block px-6 py-3 text-gray-700 hover:bg-red-500 hover:text-white">About</a>
-            <a href="#stats" class="block px-6 py-3 text-gray-700 hover:bg-red-500 hover:text-white">Stats</a>
-            <a href="#gallery" class="block px-6 py-3 text-gray-700 hover:bg-red-500 hover:text-white">Gallery</a>
-            <a href="#videos" class="block px-6 py-3 text-gray-700 hover:bg-red-500 hover:text-white">Videos</a>
-            <a href="#contact" class="block px-6 py-3 text-gray-700 hover:bg-red-500 hover:text-white">Contact</a>
+             <a href="#about" class="block px-6 py-3 text-gray-700 hover:bg-red-500 hover:text-white">About</a>
+             <a href="#awards" class="block px-6 py-3 text-gray-700 hover:bg-red-500 hover:text-white">Awards</a>
+             <a href="#stats" class="block px-6 py-3 text-gray-700 hover:bg-red-500 hover:text-white">Stats</a>
+             <a href="#gallery" class="block px-6 py-3 text-gray-700 hover:bg-red-500 hover:text-white">Gallery</a>
+             <a href="#videos" class="block px-6 py-3 text-gray-700 hover:bg-red-500 hover:text-white">Videos</a>
+             <a href="#schedule" class="block px-6 py-3 text-gray-700 hover:bg-red-500 hover:text-white">Schedule</a>
+             <a href="#contact" class="block px-6 py-3 text-gray-700 hover:bg-red-500 hover:text-white">Contact</a>
         </div>
     </nav>
 
     <header class="hero-bg text-white relative">
-        <div class="absolute inset-0 bg-black opacity-50"></div> <div class="container mx-auto px-6 py-20 md:py-32 text-center relative z-10">
+        <div class="absolute inset-0 bg-black opacity-50"></div>
+        <div class="container mx-auto px-6 py-20 md:py-32 text-center relative z-10">
             <h1 class="text-4xl md:text-6xl font-extrabold uppercase tracking-wider">Claire Gilbertson</h1>
             <p class="mt-4 text-xl md:text-2xl font-semibold">Class of 2027 | First Base & Corner Outfield</p>
             <p class="mt-2 text-lg md:text-xl">Driven. Dedicated. Ready to Compete.</p>
@@ -103,38 +146,78 @@
     <section id="about" class="py-16 bg-white">
         <div class="container mx-auto px-6">
             <h2 class="section-title text-3xl font-bold text-center mb-12 text-red-600">About Claire</h2>
-            <div class="flex flex-col md:flex-row items-center md:space-x-12">
-                <div class="md:w-1/3 mb-8 md:mb-0">
-                    <img src="https://placehold.co/400x500/E2E8F0/4A5568?text=Claire+Portrait" alt="Claire Gilbertson" class="rounded-lg shadow-xl mx-auto" onerror="this.src='https://placehold.co/400x500/E2E8F0/4A5568?text=Photo+Error';">
+            <div class="flex flex-col lg:flex-row items-center lg:space-x-12">
+                <div class="lg:w-1/3 mb-8 lg:mb-0 flex-shrink-0">
+                    <div class="player-card rounded-xl shadow-xl p-4 transform -rotate-2">
+                        <img src="./images/Headshot.JPG" alt="Claire Gilbertson" class="rounded-lg shadow-lg" onerror="this.src='https://placehold.co/400x500/E2E8F0/4A5568?text=Photo+Error';">
+                        <div class="text-center mt-4">
+                            <h3 class="text-2xl font-bold text-gray-800">Claire Gilbertson</h3>
+                            <p class="text-red-600 font-semibold">#29</p>
+                        </div>
+                        <div class="mt-4 border-t border-gray-300 pt-3 text-sm">
+                            <p class="flex justify-between"><strong>Position:</strong> <span>1B, OF</span></p>
+                            <p class="flex justify-between"><strong>Grad Year:</strong> <span>2027</span></p>
+                            <p class="flex justify-between"><strong>Height:</strong> <span>5'11"</span></p>
+                        </div>
                     </div>
-                <div class="md:w-2/3 text-lg">
-                    <p class="mb-4">Claire Gilbertson is a dedicated and passionate softball player aiming to compete at the collegiate level. Graduating in <strong class="text-red-500">2027</strong>, she is entering her junior year of high school in the fall of 2025.</p>
+                </div>
+                <div class="lg:w-2/3 text-lg">
+                    <p class="mb-4">Claire Gilbertson is a dedicated and passionate softball player aiming to compete at the collegiate level. Born on <strong class="text-red-500">June 19, 2009</strong>, and graduating in <strong class="text-red-500">2027</strong>, she is entering her junior year of high school in the fall of 2025.</p>
                     <p class="mb-4">Standing at <strong class="text-red-500">5'11"</strong>, Claire primarily plays <strong class="text-red-500">First Base</strong>, bringing a strong defensive presence to the infield. She also excels as a <strong class="text-red-500">Corner Outfielder</strong>, showcasing a powerful throwing arm.</p>
                     <p class="mb-4">Her journey in softball began at age 7, and she has been playing competitive softball since age 10, continually developing her skills and game IQ.</p>
                     <p class="mb-4">On offense, Claire is primarily a <strong class="text-red-500">line drive gap-to-gap hitter</strong>. She is actively working on her <strong class="text-red-500">power swing to increase slugging potential</strong> and is also focused on improving her <strong class="text-red-500">agility</strong> for enhanced performance on both sides of the ball.</p>
-                    <p class="mb-4">Academically, Claire is interested in <strong class="text-red-500">Science, Biology, and Animals</strong>. She is also a <strong class="text-red-500">two-time varsity swimmer in sectionals</strong>. Off the field, she enjoys <strong class="text-red-500">fishing, hunting, reading, swimming, and spending quality time with friends and family</strong>. These interests highlight her well-rounded nature and dedication.</p>
+                    <p class="mb-4">Academically, Claire is interested in <strong class="text-red-500">Science, Biology, and Animals</strong>. Off the field, she enjoys <strong class="text-red-500">fishing, hunting, reading, swimming, and spending quality time with friends and family</strong>.</p>
                     <p class="font-semibold">Claire is committed to her growth as a player and is eager to contribute her talent and hard work to a college softball program.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="stats" class="py-16 bg-gray-50">
+    <section id="awards" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <h2 class="section-title text-3xl font-bold text-center mb-12 text-red-600">Awards & Recognition</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-md flex items-center space-x-4">
+                    <div class="flex-shrink-0">
+                        <svg class="w-12 h-12 text-red-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" /></svg>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-lg">Second Team All-Conference</h3>
+                        <p class="text-gray-600">Softball - 2025 Season</p>
+                    </div>
+                </div>
+                 <div class="bg-white p-6 rounded-lg shadow-md flex items-center space-x-4">
+                    <div class="flex-shrink-0">
+                        <svg class="w-12 h-12 text-red-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068M15.75 21H9a2.25 2.25 0 01-2.25-2.25V5.25A2.25 2.25 0 019 3h6.75A2.25 2.25 0 0118 5.25v8.25A2.25 2.25 0 0115.75 21z" /></svg>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-lg">Varsity Swimmer</h3>
+                        <p class="text-gray-600">2x Sectional Competitor</p>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md flex items-center space-x-4">
+                    <div class="flex-shrink-0">
+                        <svg class="w-12 h-12 text-red-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0l15.482 0m0 0l15.482 0" /></svg>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-lg">Honor Roll Student</h3>
+                        <p class="text-gray-600">Maintaining High Academic Standing</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="stats" class="py-16 bg-white">
         <div class="container mx-auto px-6">
             <h2 class="section-title text-3xl font-bold text-center mb-10 text-red-600">Performance Statistics</h2>
             
             <div class="mb-12">
                 <h3 class="text-2xl font-semibold text-center text-gray-700 mb-6">Combined Key Stats (High School & Club)</h3>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-                    <div class="stat-card bg-white p-8 rounded-xl shadow-lg">
-                        <h4 class="text-4xl font-bold text-red-500">.436</h4> <p class="text-gray-600 text-lg mt-2">Batting Average</p>
-                    </div>
-                    <div class="stat-card bg-white p-8 rounded-xl shadow-lg">
-                        <h4 class="text-4xl font-bold text-red-500">1.039</h4> <p class="text-gray-600 text-lg mt-2">On-base Plus Slugging (OPS)</p>
-                    </div>
-                    <div class="stat-card bg-white p-8 rounded-xl shadow-lg">
-                        <h4 class="text-4xl font-bold text-red-500">9</h4> <p class="text-gray-600 text-lg mt-2">Doubles</p>
-                    </div>
+                    <div class="stat-card p-8 rounded-xl"><h4 class="text-4xl font-bold text-red-500">.436</h4><p class="text-gray-600 text-lg mt-2">Batting Average</p></div>
+                    <div class="stat-card p-8 rounded-xl"><h4 class="text-4xl font-bold text-red-500">1.039</h4><p class="text-gray-600 text-lg mt-2">OPS</p></div>
+                    <div class="stat-card p-8 rounded-xl"><h4 class="text-4xl font-bold text-red-500">9</h4><p class="text-gray-600 text-lg mt-2">Doubles</p></div>
                 </div>
             </div>
 
@@ -160,7 +243,7 @@
                             <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Home Runs</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">1</td></tr>
                             <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Stolen Bases</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">1</td></tr>
                             <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Fielding Percentage</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">.944</td></tr>
-                            </tbody>
+                        </tbody>
                     </table>
                 </div>
             </div>
@@ -187,180 +270,136 @@
                             <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Home Runs</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">1</td></tr>
                             <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Stolen Bases</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2</td></tr>
                             <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Fielding Percentage</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">.946</td></tr>
-                            </tbody>
+                        </tbody>
                     </table>
                 </div>
             </div>
-            <p class="mt-8 text-sm text-gray-500 text-center">More detailed stats or specific season breakdowns available upon request.</p>
+        <p class="mt-8 text-sm text-gray-500 text-center">More detailed stats or specific season breakdowns available upon request.</p>
         </div>
     </section>
 
-    <section id="gallery" class="py-16 bg-white">
+    <section id="gallery" class="py-16 bg-gray-50">
         <div class="container mx-auto px-6 text-center">
             <h2 class="section-title text-3xl font-bold mb-12 text-red-600">Photo Gallery</h2>
             <p class="text-lg mb-8">Check out action shots and more in Claire's regularly updated photo album.</p>
-            
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
-                <div class="rounded-lg overflow-hidden shadow-lg">
-                    <img src="./images/Hit.jpg" alt="Softball action shot 1" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/600x400/D1D5DB/4B5563?text=Photo+Error'; this.alt='Error loading image';">
+                <div class="gallery-item rounded-lg overflow-hidden shadow-lg relative">
+                    <img src="./images/Hit.jpg" alt="Softball action shot 1" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/600x400/D1D5DB/4B5563?text=Photo+Error';">
                 </div>
-                <div class="rounded-lg overflow-hidden shadow-lg">
-                    <img src="./images/TeamCentered.jpg" alt="Softball action shot 2" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/600x400/D1D5DB/4B5563?text=Photo+Error'; this.alt='Error loading image';">
+                <div class="gallery-item rounded-lg overflow-hidden shadow-lg relative">
+                    <img src="./images/TeamCentered.jpg" alt="Softball action shot 2" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/600x400/D1D5DB/4B5563?text=Photo+Error';">
                 </div>
-                <div class="rounded-lg overflow-hidden shadow-lg">
-                    <img src="./images/Regionals.jpg" alt="Team photo" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/600x400/D1D5DB/4B5563?text=Photo+Error'; this.alt='Error loading team photo';">
+                <div class="gallery-item rounded-lg overflow-hidden shadow-lg relative">
+                    <img src="./images/Regionals.jpg" alt="Team photo" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/600x400/D1D5DB/4B5563?text=Photo+Error';">
                 </div>
             </div>
             <a href="YOUR_GOOGLE_PHOTOS_ALBUM_LINK_HERE" target="_blank" rel="noopener noreferrer" class="btn-primary font-bold py-3 px-8 rounded-lg text-lg uppercase shadow-md hover:shadow-xl transform hover:scale-105 transition-transform duration-300">
                 View Full Photo Album
             </a>
-            <p class="mt-4 text-sm text-gray-500">(Opens in a new tab)</p>
         </div>
     </section>
 
-    <section id="videos" class="py-16 bg-gray-50">
+    <section id="videos" class="py-16 bg-white">
         <div class="container mx-auto px-6 text-center">
             <h2 class="section-title text-3xl font-bold mb-12 text-red-600">Video Highlights</h2>
             <p class="text-lg mb-8">See Claire in action with game footage and skills videos.</p>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="aspect-[16/9] rounded-lg overflow-hidden shadow-xl">
-                     <iframe src="https://www.youtube.com/embed/UqAoONBjlQU" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="w-full h-full"></iframe>
-                </div>
-                <div class="aspect-[16/9] rounded-lg overflow-hidden shadow-xl">
-                     <iframe src="https://www.youtube.com/embed/VIDEO_ID_2" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="w-full h-full"></iframe>
-                </div>
+                <div class="aspect-[16/9] rounded-lg overflow-hidden shadow-xl"><iframe src="https://www.youtube.com/embed/UqAoONBjlQU" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="w-full h-full"></iframe></div>
+                <div class="aspect-[16/9] rounded-lg overflow-hidden shadow-xl"><iframe src="https://www.youtube.com/embed/VIDEO_ID_2" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="w-full h-full"></iframe></div>
             </div>
-             <p class="mt-8 text-sm text-gray-500">More videos available on request.</p>
+            <p class="mt-8 text-sm text-gray-500">More videos available on request.</p>
         </div>
     </section>
 
-    <section id="schedule" class="py-16 bg-white">
+    <section id="schedule" class="py-16 bg-gray-50">
         <div class="container mx-auto px-6">
             <h2 class="section-title text-3xl font-bold text-center mb-12 text-red-600">Summer 2025 Tournament Schedule</h2>
-            <p class="text-lg text-center mb-10 text-gray-700">Come watch Claire play! (Details subject to change - please verify.)</p>
-            
-            <div class="space-y-8">
-                <div class="schedule-item bg-gray-50 p-6 rounded-lg shadow-md">
-                    <h3 class="text-xl font-semibold text-red-600 mb-2">2025 Spiderz Invitational</h3>
-                    <p class="text-gray-700 mb-1"><strong class="font-medium">Dates:</strong> June 6-8, 2025</p>
-                    <p class="text-gray-700 mb-1"><strong class="font-medium">Location:</strong> Slinger, WI</p>
-                    <p class="text-gray-700"><strong class="font-medium">Team:</strong> Mequon Mayhem</p>
-                    </div>
-
-                <div class="schedule-item bg-gray-50 p-6 rounded-lg shadow-md">
-                    <h3 class="text-xl font-semibold text-red-600 mb-2">Uncle Charlie's: All American Showcase</h3>
-                    <p class="text-gray-700 mb-1"><strong class="font-medium">Dates:</strong> June 13-15, 2025</p>
-                    <p class="text-gray-700 mb-1"><strong class="font-medium">Location:</strong> Fond Du Lac, WI</p>
-                    <p class="text-gray-700"><strong class="font-medium">Team:</strong> Mequon Mayhem</p>
+            <p class="text-lg text-center mb-10 text-gray-700">Come watch Claire play!</p>
+            <div class="space-y-8 max-w-3xl mx-auto">
+                <div class="schedule-item bg-white p-4 rounded-lg shadow-md">
+                    <div class="flex-shrink-0"><svg class="w-10 h-10 text-red-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0h18M-4.5 12h22.5" /></svg></div>
+                    <div><h3 class="text-xl font-semibold text-gray-800">2025 Spiderz Invitational</h3><p><strong>Dates:</strong> June 6-8, 2025 | <strong>Location:</strong> Slinger, WI</p></div>
                 </div>
-
-                <div class="schedule-item extra-schedule-item hidden bg-gray-50 p-6 rounded-lg shadow-md">
-                    <h3 class="text-xl font-semibold text-red-600 mb-2">Mayhem in Mequon</h3>
-                    <p class="text-gray-700 mb-1"><strong class="font-medium">Dates:</strong> June 20-22, 2025</p>
-                    <p class="text-gray-700 mb-1"><strong class="font-medium">Location:</strong> Mequon, WI</p>
-                    <p class="text-gray-700"><strong class="font-medium">Team:</strong> Mequon Mayhem</p>
+                <div class="schedule-item bg-white p-4 rounded-lg shadow-md">
+                    <div class="flex-shrink-0"><svg class="w-10 h-10 text-red-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0h18M-4.5 12h22.5" /></svg></div>
+                    <div><h3 class="text-xl font-semibold text-gray-800">Uncle Charlie's: All American Showcase</h3><p><strong>Dates:</strong> June 13-15, 2025 | <strong>Location:</strong> Fond Du Lac, WI</p></div>
                 </div>
-
-                <div class="schedule-item extra-schedule-item hidden bg-gray-50 p-6 rounded-lg shadow-md">
-                    <h3 class="text-xl font-semibold text-red-600 mb-2">Wisconsin State NAFA Fastpitch Tournament</h3>
-                    <p class="text-gray-700 mb-1"><strong class="font-medium">Dates:</strong> June 26-29, 2025</p>
-                    <p class="text-gray-700 mb-1"><strong class="font-medium">Location:</strong> Plover, WI</p>
-                    <p class="text-gray-700"><strong class="font-medium">Team:</strong> Mequon Mayhem</p>
+                <div class="schedule-item extra-schedule-item hidden bg-white p-4 rounded-lg shadow-md">
+                    <div class="flex-shrink-0"><svg class="w-10 h-10 text-red-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0h18M-4.5 12h22.5" /></svg></div>
+                    <div><h3 class="text-xl font-semibold text-gray-800">Mayhem in Mequon</h3><p><strong>Dates:</strong> June 20-22, 2025 | <strong>Location:</strong> Mequon, WI</p></div>
                 </div>
-
-                <div class="schedule-item extra-schedule-item hidden bg-gray-50 p-6 rounded-lg shadow-md">
-                    <h3 class="text-xl font-semibold text-red-600 mb-2">Illinois State Champions Tournament</h3>
-                    <p class="text-gray-700 mb-1"><strong class="font-medium">Dates:</strong> July 11-13, 2025</p>
-                    <p class="text-gray-700 mb-1"><strong class="font-medium">Location:</strong> Peoria, IL</p>
-                    <p class="text-gray-700"><strong class="font-medium">Team:</strong> Mequon Mayhem</p>
+                <div class="schedule-item extra-schedule-item hidden bg-white p-4 rounded-lg shadow-md">
+                    <div class="flex-shrink-0"><svg class="w-10 h-10 text-red-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0h18M-4.5 12h22.5" /></svg></div>
+                    <div><h3 class="text-xl font-semibold text-gray-800">Wisconsin State NAFA Fastpitch Tournament</h3><p><strong>Dates:</strong> June 26-29, 2025 | <strong>Location:</strong> Plover, WI</p></div>
                 </div>
-                
-                <div class="schedule-item extra-schedule-item hidden bg-gray-50 p-6 rounded-lg shadow-md">
-                    <h3 class="text-xl font-semibold text-red-600 mb-2">Uncle Charlie's: Northern Championship</h3>
-                    <p class="text-gray-700 mb-1"><strong class="font-medium">Dates:</strong> July 17-20, 2025</p>
-                    <p class="text-gray-700 mb-1"><strong class="font-medium">Location:</strong> Green Bay, WI</p>
-                    <p class="text-gray-700"><strong class="font-medium">Team:</strong> Mequon Mayhem</p>
+                <div class="schedule-item extra-schedule-item hidden bg-white p-4 rounded-lg shadow-md">
+                    <div class="flex-shrink-0"><svg class="w-10 h-10 text-red-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0h18M-4.5 12h22.5" /></svg></div>
+                    <div><h3 class="text-xl font-semibold text-gray-800">Illinois State Champions Tournament</h3><p><strong>Dates:</strong> July 11-13, 2025 | <strong>Location:</strong> Peoria, IL</p></div>
                 </div>
-
-                <div class="schedule-item extra-schedule-item hidden bg-gray-50 p-6 rounded-lg shadow-md">
-                    <h3 class="text-xl font-semibold text-red-600 mb-2">Northern NAFA Nationals</h3>
-                    <p class="text-gray-700 mb-1"><strong class="font-medium">Dates:</strong> July 24-27, 2025</p>
-                    <p class="text-gray-700 mb-1"><strong class="font-medium">Location:</strong> Champlin, MN</p>
-                    <p class="text-gray-700"><strong class="font-medium">Team:</strong> Mequon Mayhem</p>
+                <div class="schedule-item extra-schedule-item hidden bg-white p-4 rounded-lg shadow-md">
+                    <div class="flex-shrink-0"><svg class="w-10 h-10 text-red-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0h18M-4.5 12h22.5" /></svg></div>
+                    <div><h3 class="text-xl font-semibold text-gray-800">Uncle Charlie's: Northern Championship</h3><p><strong>Dates:</strong> July 17-20, 2025 | <strong>Location:</strong> Green Bay, WI</p></div>
                 </div>
-                <button id="toggleScheduleButton" class="mt-8 btn-secondary font-semibold py-2 px-6 rounded-lg text-base shadow-md hover:shadow-lg transform hover:scale-105 transition-transform duration-300 mx-auto block">
-                    Show More
-                </button>
+                <div class="schedule-item extra-schedule-item hidden bg-white p-4 rounded-lg shadow-md">
+                    <div class="flex-shrink-0"><svg class="w-10 h-10 text-red-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0h18M-4.5 12h22.5" /></svg></div>
+                    <div><h3 class="text-xl font-semibold text-gray-800">Northern NAFA Nationals</h3><p><strong>Dates:</strong> July 24-27, 2025 | <strong>Location:</strong> Champlin, MN</p></div>
                 </div>
-            <p class="mt-8 text-sm text-gray-500 text-center">Please confirm game times and field locations with the respective tournament organizers.</p>
+            </div>
+            <button id="toggleScheduleButton" class="mt-8 btn-secondary font-semibold py-2 px-6 rounded-lg text-base shadow-md hover:shadow-lg transform hover:scale-105 transition-transform duration-300 mx-auto block">Show More</button>
         </div>
+        <p class="mt-8 text-sm text-gray-500 text-center">Please confirm game times and field locations with the respective tournament organizers.</p>
     </section>
 
-    <section id="contact" class="py-16 bg-gray-50">
+    <section id="contact" class="py-16 bg-white">
         <div class="container mx-auto px-6 text-center">
             <h2 class="section-title text-3xl font-bold mb-8 text-red-600">Get In Touch</h2>
-            <p class="text-lg mb-4">Interested in learning more or connecting with Claire?</p>
-            <p class="text-xl font-semibold text-red-500 mb-2">
-                Email: <a href="mailto:YOUR_EMAIL_HERE@example.com" class="hover:underline">claire@clairegilbertsonsb.com</a>
-            </p>
-            <div class="mt-6 text-gray-600">
-                <!-- <p><em>Additional contact methods (e.g., phone, recruiting profile links) can be added here.</em></p> -->
-            </div>
+            <p class="text-lg">For recruiting inquiries, please email <a href="mailto:claire@clairegilbertsonsb.com" class="text-red-600 font-semibold hover:underline">claire@clairegilbertsonsb.com</a></p>
         </div>
     </section>
     
     <footer class="bg-gray-800 text-white py-8 text-center">
         <div class="container mx-auto px-6">
             <p>© <span id="currentYear"></span> Claire Gilbertson Softball. All Rights Reserved.</p>
-            <p class="text-sm mt-1">Showcasing talent and dedication on and off the field.</p>
         </div>
     </footer>
 
     <script>
-        // Mobile menu toggle
+        // --- Standard Page Interactivity ---
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
-        mobileMenuButton.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
+        if (mobileMenuButton && mobileMenu) {
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
 
-        // Smooth scroll for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                // Hide mobile menu on click
-                if (!mobileMenu.classList.contains('hidden')) {
+                if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
                     mobileMenu.classList.add('hidden');
                 }
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
+                const targetElement = document.querySelector(this.getAttribute('href'));
+                if (targetElement) {
+                    targetElement.scrollIntoView({ behavior: 'smooth' });
+                }
             });
         });
 
-        // Set current year in footer
-        document.getElementById('currentYear').textContent = new Date().getFullYear();
+        const currentYearElement = document.getElementById('currentYear');
+        if (currentYearElement) {
+            currentYearElement.textContent = new Date().getFullYear();
+        }
 
-        // Toggle Schedule Items
         const toggleScheduleButton = document.getElementById('toggleScheduleButton');
         const extraScheduleItems = document.querySelectorAll('.extra-schedule-item');
 
         if (toggleScheduleButton && extraScheduleItems.length > 0) {
             toggleScheduleButton.addEventListener('click', () => {
-                extraScheduleItems.forEach(item => {
-                    item.classList.toggle('hidden');
-                });
-
-                // Change button text
-                // Check the class of the first extra item to determine state
-                if (extraScheduleItems[0].classList.contains('hidden')) {
-                    toggleScheduleButton.textContent = 'Show More';
-                } else {
-                    toggleScheduleButton.textContent = 'Show Less';
-                }
+                extraScheduleItems.forEach(item => { item.classList.toggle('hidden'); });
+                toggleScheduleButton.textContent = extraScheduleItems[0].classList.contains('hidden') ? 'Show More' : 'Show Less';
             });
         } else if (toggleScheduleButton) {
-            // If there are no extra items to toggle, hide the button itself
             toggleScheduleButton.classList.add('hidden');
         }
     </script>
