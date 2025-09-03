@@ -37,7 +37,7 @@
             border-radius: 0.75rem; /* 12px */
             background: linear-gradient(to right, #EF4444, #F87171) border-box;
             -webkit-mask:
-                linear-gradient(#fff 0 0) padding-box, 
+                linear-gradient(#fff 0 0) padding-box,
                 linear-gradient(#fff 0 0);
             -webkit-mask-composite: destination-out;
             mask-composite: exclude;
@@ -100,6 +100,24 @@
         ::-webkit-scrollbar-track { background: #f1f1f1; }
         ::-webkit-scrollbar-thumb { background: #DC2626; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: #B91C1C; }
+
+        /* Accordion-specific styles */
+        .accordion-content {
+            transition: max-height 0.3s ease-in-out, padding-top 0.3s ease-in-out, padding-bottom 0.3s ease-in-out;
+            overflow: hidden;
+            max-height: 0;
+            padding: 0;
+        }
+        .accordion-content.active {
+            max-height: 1000px; /* A value larger than the content to allow smooth transition */
+            padding-top: 1.5rem; /* Equivalent to py-6 */
+        }
+        .accordion-title svg {
+            transition: transform 0.3s ease-in-out;
+        }
+        .accordion-title.active svg {
+            transform: rotate(180deg);
+        }
     </style>
 </head>
 <body class="bg-gray-100 text-gray-800">
@@ -215,66 +233,114 @@
             <div class="mb-12">
                 <h3 class="text-2xl font-semibold text-center text-gray-700 mb-6">Combined Key Stats (High School & Club)</h3>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-                    <div class="stat-card p-8 rounded-xl"><h4 class="text-4xl font-bold text-red-500">.436</h4><p class="text-gray-600 text-lg mt-2">Batting Average</p></div>
-                    <div class="stat-card p-8 rounded-xl"><h4 class="text-4xl font-bold text-red-500">1.039</h4><p class="text-gray-600 text-lg mt-2">OPS</p></div>
-                    <div class="stat-card p-8 rounded-xl"><h4 class="text-4xl font-bold text-red-500">9</h4><p class="text-gray-600 text-lg mt-2">Doubles</p></div>
+                    <div class="stat-card p-8 rounded-xl"><h4 class="text-4xl font-bold text-red-500">.394</h4><p class="text-gray-600 text-lg mt-2">Batting Average</p></div>
+                    <div class="stat-card p-8 rounded-xl"><h4 class="text-4xl font-bold text-red-500">.967</h4><p class="text-gray-600 text-lg mt-2">OPS</p></div>
+                    <div class="stat-card p-8 rounded-xl"><h4 class="text-4xl font-bold text-red-500">16</h4><p class="text-gray-600 text-lg mt-2">Doubles</p></div>
                 </div>
             </div>
 
-            <div class="bg-white p-8 rounded-xl shadow-lg mb-12">
-                <h3 class="text-2xl font-semibold mb-6 text-center text-gray-700">2025 High School Season Stats</h3>
-                <div class="overflow-x-auto">
-                    <table class="min-w-full divide-y divide-gray-200">
-                        <thead class="bg-gray-100">
-                            <tr>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Statistic Category</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Value</th>
-                            </tr>
-                        </thead>
-                        <tbody class="bg-white divide-y divide-gray-200">
-                            <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Batting Average</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">.448</td></tr>
-                            <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">OPS</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">1.094</td></tr>
-                            <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Singles</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">33</td></tr>
-                            <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Doubles</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">7</td></tr>
-                            <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Games Played</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">28</td></tr>
-                            <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">At Bats</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">96</td></tr>
-                            <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Hits</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">43</td></tr>
-                            <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">RBIs</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">21</td></tr>
-                            <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Home Runs</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">1</td></tr>
-                            <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Stolen Bases</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">1</td></tr>
-                            <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Fielding Percentage</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">.944</td></tr>
-                        </tbody>
-                    </table>
+            <div class="space-y-4">
+                <!-- Accordion for stats -->
+                <div class="accordion-item bg-white rounded-xl shadow-lg">
+                    <button class="accordion-title flex justify-between items-center w-full p-6 text-xl font-semibold text-gray-700 hover:bg-gray-50 focus:outline-none rounded-t-xl" aria-expanded="false">
+                        <span>Mequon Mayhem Club Stats <span class="text-base font-normal">Summer 2025</span></span>
+                        <svg class="w-6 h-6 transform rotate-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div class="accordion-content">
+                        <div class="px-6 pb-6 pt-0 overflow-x-auto">
+                            <table class="min-w-full divide-y divide-gray-200">
+                                <thead class="bg-gray-100">
+                                    <tr>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Statistic Category</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Value</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white divide-y divide-gray-200">
+                                    <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Batting Average</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">.326</td></tr>
+                                    <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">OBP</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">.380</td></tr>
+                                    <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">OPS</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">.847</td></tr>
+                                    <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Singles</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">21</td></tr>
+                                    <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Doubles</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">7</td></tr>
+                                    <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Games Played</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">36</td></tr>
+                                    <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">At Bats</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">92</td></tr>
+                                    <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Hits</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">30</td></tr>
+                                    <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">RBIs</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">18</td></tr>
+                                    <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Home Runs</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2</td></tr>
+                                    <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Stolen Bases</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">5</td></tr>
+                                    <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Fielding Percentage</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">.911</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
-            </div>
 
-            <div class="bg-white p-8 rounded-xl shadow-lg">
-                <h3 class="text-2xl font-semibold mb-6 text-center text-gray-700">Mequon Mayhem Club Stats <span class="text-base font-normal">Fall/Winter 2024</span></h3>
-                <div class="overflow-x-auto">
-                    <table class="min-w-full divide-y divide-gray-200">
-                        <thead class="bg-gray-100">
-                            <tr>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Statistic Category</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Value</th>
-                            </tr>
-                        </thead>
-                        <tbody class="bg-white divide-y divide-gray-200">
-                            <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Batting Average</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">.415</td></tr>
-                            <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">OPS</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">.938</td></tr>
-                            <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Singles</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">18</td></tr>
-                            <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Doubles</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2</td></tr>
-                            <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Games Played</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">27</td></tr>
-                            <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">At Bats</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">53</td></tr>
-                            <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Hits</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">22</td></tr>
-                            <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">RBIs</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">22</td></tr>
-                            <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Home Runs</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">1</td></tr>
-                            <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Stolen Bases</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2</td></tr>
-                            <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Fielding Percentage</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">.946</td></tr>
-                        </tbody>
-                    </table>
+                <div class="accordion-item bg-white rounded-xl shadow-lg">
+                    <button class="accordion-title flex justify-between items-center w-full p-6 text-xl font-semibold text-gray-700 hover:bg-gray-50 focus:outline-none rounded-t-xl" aria-expanded="false">
+                        <span>2025 High School Season Stats</span>
+                        <svg class="w-6 h-6 transform rotate-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div class="accordion-content">
+                        <div class="px-6 pb-6 pt-0 overflow-x-auto">
+                            <table class="min-w-full divide-y divide-gray-200">
+                                <thead class="bg-gray-100">
+                                    <tr>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Statistic Category</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Value</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white divide-y divide-gray-200">
+                                    <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Batting Average</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">.448</td></tr>
+                                    <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">OBP</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">.500</td></tr>
+                                    <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">OPS</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">1.094</td></tr>
+                                    <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Singles</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">33</td></tr>
+                                    <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Doubles</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">7</td></tr>
+                                    <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Games Played</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">28</td></tr>
+                                    <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">At Bats</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">96</td></tr>
+                                    <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Hits</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">43</td></tr>
+                                    <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">RBIs</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">21</td></tr>
+                                    <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Home Runs</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">1</td></tr>
+                                    <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Stolen Bases</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">1</td></tr>
+                                    <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Fielding Percentage</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">.944</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item bg-white rounded-xl shadow-lg">
+                    <button class="accordion-title flex justify-between items-center w-full p-6 text-xl font-semibold text-gray-700 hover:bg-gray-50 focus:outline-none rounded-t-xl" aria-expanded="false">
+                        <span>Mequon Mayhem Club Stats <span class="text-base font-normal">Fall/Winter 2024</span></span>
+                        <svg class="w-6 h-6 transform rotate-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div class="accordion-content">
+                        <div class="px-6 pb-6 pt-0 overflow-x-auto">
+                            <table class="min-w-full divide-y divide-gray-200">
+                                <thead class="bg-gray-100">
+                                    <tr>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Statistic Category</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Value</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white divide-y divide-gray-200">
+                                    <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Batting Average</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">.415</td></tr>
+                                    <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">OBP</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">.467</td></tr>
+                                    <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">OPS</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">.938</td></tr>
+                                    <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Singles</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">18</td></tr>
+                                    <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Doubles</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2</td></tr>
+                                    <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Games Played</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">27</td></tr>
+                                    <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">At Bats</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">53</td></tr>
+                                    <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Hits</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">22</td></tr>
+                                    <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">RBIs</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">22</td></tr>
+                                    <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Home Runs</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">1</td></tr>
+                                    <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Stolen Bases</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2</td></tr>
+                                    <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Fielding Percentage</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">.946</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
-        <p class="mt-8 text-sm text-gray-500 text-center">More detailed stats or specific season breakdowns available upon request.</p>
+            <p class="mt-8 text-sm text-gray-500 text-center">More detailed stats or specific season breakdowns available upon request.</p>
         </div>
     </section>
 
@@ -313,16 +379,20 @@
 
     <section id="schedule" class="py-16 bg-gray-50">
         <div class="container mx-auto px-6">
-            <h2 class="section-title text-3xl font-bold text-center mb-12 text-red-600">Summer 2025 Tournament Schedule</h2>
+            <h2 class="section-title text-3xl font-bold text-center mb-12 text-red-600">Fall 2025 Tournament Schedule</h2>
             <p class="text-lg text-center mb-10 text-gray-700">Come watch Claire play!</p>
             <div class="space-y-8 max-w-3xl mx-auto">
-                <div class="schedule-item extra-schedule-item bg-white p-4 rounded-lg shadow-md">
+                <div class="schedule-item bg-white p-4 rounded-lg shadow-md">
                     <div class="flex-shrink-0"><svg class="w-10 h-10 text-red-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0h18M-4.5 12h22.5" /></svg></div>
-                    <div><h3 class="text-xl font-semibold text-gray-800">Uncle Charlie's: Northern Championship</h3><p><strong>Dates:</strong> July 17-20, 2025 | <strong>Location:</strong> Green Bay, WI</p></div>
+                    <div><h3 class="text-xl font-semibold text-gray-800">Mayhem Fall Classic</h3><p><strong>Dates:</strong> September 20-21, 2025 | <strong>Location:</strong> Mequon, WI</p></div>
                 </div>
-                <div class="schedule-item extra-schedule-item bg-white p-4 rounded-lg shadow-md">
+                <div class="schedule-item bg-white p-4 rounded-lg shadow-md">
                     <div class="flex-shrink-0"><svg class="w-10 h-10 text-red-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0h18M-4.5 12h22.5" /></svg></div>
-                    <div><h3 class="text-xl font-semibold text-gray-800">Northern NAFA Nationals</h3><p><strong>Dates:</strong> July 24-27, 2025 | <strong>Location:</strong> Champlin, MN</p></div>
+                    <div><h3 class="text-xl font-semibold text-gray-800">WSC Oktoberfest</h3><p><strong>Dates:</strong> October 4-5, 2025 | <strong>Location:</strong> Slinger, WI</p></div>
+                </div>
+                <div class="schedule-item bg-white p-4 rounded-lg shadow-md">
+                    <div class="flex-shrink-0"><svg class="w-10 h-10 text-red-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0h18M-4.5 12h22.5" /></svg></div>
+                    <div><h3 class="text-xl font-semibold text-gray-800">Field of Screams</h3><p><strong>Dates:</strong> October 18-19, 2025 | <strong>Location:</strong> Union Grove, WI</p></div>
                 </div>
             </div>
             <button id="toggleScheduleButton" class="mt-8 btn-secondary font-semibold py-2 px-6 rounded-lg text-base shadow-md hover:shadow-lg transform hover:scale-105 transition-transform duration-300 mx-auto block">Show More</button>
@@ -371,18 +441,64 @@
             currentYearElement.textContent = new Date().getFullYear();
         }
 
-        const toggleScheduleButton = document.getElementById('toggleScheduleButton');
+        // --- Schedule "Show More" Logic ---
+        const scheduleContainer = document.querySelector('#schedule .space-y-8');
+        const scheduleItems = document.querySelectorAll('.schedule-item');
         const extraScheduleItems = document.querySelectorAll('.extra-schedule-item');
+        const toggleScheduleButton = document.getElementById('toggleScheduleButton');
+        const initialVisibleCount = 3;
 
-        if (toggleScheduleButton && extraScheduleItems.length > 0) {
-            toggleScheduleButton.addEventListener('click', () => {
-                extraScheduleItems.forEach(item => { item.classList.toggle('hidden'); });
-                toggleScheduleButton.textContent = extraScheduleItems[0].classList.contains('hidden') ? 'Show More' : 'Show Less';
-            });
-        } else if (toggleScheduleButton) {
-            toggleScheduleButton.classList.add('hidden');
+        // Hide "Show More" button if there are 3 or fewer total items
+        if (scheduleItems.length <= initialVisibleCount) {
+            if (toggleScheduleButton) {
+                toggleScheduleButton.classList.add('hidden');
+            }
+        } else {
+            // Otherwise, show the button and manage the visibility of extra items
+            if (toggleScheduleButton) {
+                toggleScheduleButton.classList.remove('hidden');
+                
+                // Ensure extra items are hidden on load
+                extraScheduleItems.forEach(item => {
+                    item.classList.add('hidden');
+                });
+                toggleScheduleButton.textContent = 'Show More';
+                
+                toggleScheduleButton.addEventListener('click', () => {
+                    extraScheduleItems.forEach(item => {
+                        item.classList.toggle('hidden');
+                    });
+                    toggleScheduleButton.textContent = extraScheduleItems[0].classList.contains('hidden') ? 'Show More' : 'Show Less';
+                });
+            }
         }
-    </script>
 
+        // --- Stats Accordion Logic ---
+        const accordionItems = document.querySelectorAll('.accordion-item');
+
+        accordionItems.forEach(item => {
+            const button = item.querySelector('.accordion-title');
+            const content = item.querySelector('.accordion-content');
+            button.addEventListener('click', () => {
+                const isExpanded = button.getAttribute('aria-expanded') === 'true' || false;
+                
+                // Close other open accordions
+                accordionItems.forEach(otherItem => {
+                    const otherButton = otherItem.querySelector('.accordion-title');
+                    const otherContent = otherItem.querySelector('.accordion-content');
+                    if (otherButton !== button && otherButton.getAttribute('aria-expanded') === 'true') {
+                        otherButton.setAttribute('aria-expanded', 'false');
+                        otherButton.classList.remove('active');
+                        otherContent.classList.remove('active');
+                    }
+                });
+
+                // Toggle current accordion
+                button.setAttribute('aria-expanded', !isExpanded);
+                button.classList.toggle('active');
+                content.classList.toggle('active');
+            });
+        });
+    </script>
 </body>
 </html>
