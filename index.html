@@ -180,6 +180,20 @@
             border-radius: 4px;
         }
 
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #DC2626;
+            border-radius: 4px;
+        }
+
         ::-webkit-scrollbar-thumb:hover {
             background: #B91C1C;
         }
@@ -194,77 +208,138 @@
 
         .accordion-content.active {
             max-height: 1000px;
-            /* A value larger than the content to allow smooth transition */
             padding-top: 1.5rem;
-            /* Equivalent to py-6 */
         }
 
-        .accordion-title svg {
-            transition: transform 0.3s ease-in-out;
+        #scrollTopBtn {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 30px;
+            z-index: 99;
+            font-size: 18px;
+            border: none;
+            outline: none;
+            background-color: #EF4444;
+            color: white;
+            cursor: pointer;
+            padding: 15px;
+            border-radius: 50%;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: background-color 0.3s ease, transform 0.3s ease;
         }
 
-        .accordion-title.active svg {
-            transform: rotate(180deg);
+        #scrollTopBtn:hover {
+            background-color: #DC2626;
+            transform: scale(1.1);
+        }
+
+        @media print {
+
+            nav,
+            #videos,
+            #gallery,
+            #schedule .btn-secondary,
+            #scrollTopBtn,
+            footer,
+            .btn-primary,
+            .btn-secondary,
+            .accordion-title svg,
+            .player-card {
+                display: none !important;
+            }
+
+            body {
+                background-color: white;
+                color: black;
+            }
+
+            .accordion-content {
+                max-height: none !important;
+                padding-top: 1.5rem !important;
+                display: block !important;
+            }
+
+            .accordion-title {
+                pointer-events: none;
+                border-bottom: 1px solid #ccc;
+            }
+
+            .container {
+                width: 100% !important;
+                max-width: none !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+
+            .section-title {
+                text-align: left;
+                border-bottom: 2px solid #000;
+            }
+
+            p,
+            h1,
+            h2,
+            h3,
+            h4,
+            h5,
+            h6 {
+                color: #000 !important;
+            }
         }
     </style>
 </head>
 
-<body class="bg-gray-100 text-gray-800">
-
+<body>
     <nav class="bg-white shadow-lg sticky top-0 z-50">
-        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
-            <a href="#" class="text-2xl font-bold text-red-600">Claire Gilbertson</a>
-            <div class="hidden md:flex space-x-4">
-                <a href="#about" class="nav-link text-gray-700 font-semibold">About</a>
-                <a href="#awards" class="nav-link text-gray-700 font-semibold">Awards</a>
-                <a href="#news" class="nav-link text-gray-700 font-semibold">In the News</a>
-                <a href="#stats" class="nav-link text-gray-700 font-semibold">Stats</a>
-                <a href="#gallery" class="nav-link text-gray-700 font-semibold">Gallery</a>
-                <a href="#videos" class="nav-link text-gray-700 font-semibold">Videos</a>
-                <a href="#schedule" class="nav-link text-gray-700 font-semibold">Schedule</a>
-                <a href="#contact" class="nav-link text-gray-700 font-semibold">Contact</a>
-            </div>
-            <div class="md:hidden">
-                <button id="mobile-menu-button" class="text-gray-700 focus:outline-none">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center"><a href="#"
+                class="text-2xl font-bold text-red-600">Claire Gilbertson</a>
+            <div class="hidden md:flex space-x-4"><a href="#about"
+                    class="nav-link text-gray-700 font-semibold">About</a><a href="#awards"
+                    class="nav-link text-gray-700 font-semibold">Awards</a><a href="#news"
+                    class="nav-link text-gray-700 font-semibold">In the News</a><a href="#stats"
+                    class="nav-link text-gray-700 font-semibold">Stats</a><a href="#gallery"
+                    class="nav-link text-gray-700 font-semibold">Gallery</a><a href="#videos"
+                    class="nav-link text-gray-700 font-semibold">Videos</a><a href="#schedule"
+                    class="nav-link text-gray-700 font-semibold">Schedule</a><a href="#contact"
+                    class="nav-link text-gray-700 font-semibold">Contact</a></div>
+            <div class="md:hidden"><button id="mobile-menu-button" class="text-gray-700 focus:outline-none"><svg
+                        class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M4 6h16M4 12h16m-7 6h7"></path>
-                    </svg>
-                </button>
-            </div>
+                    </svg></button></div>
         </div>
-        <div id="mobile-menu" class="md:hidden hidden bg-white shadow-md">
-            <a href="#about" class="block px-6 py-3 text-gray-700 hover:bg-red-500 hover:text-white">About</a>
-            <a href="#awards" class="block px-6 py-3 text-gray-700 hover:bg-red-500 hover:text-white">Awards</a>
-            <a href="#news" class="block px-6 py-3 text-gray-700 hover:bg-red-500 hover:text-white">In the News</a>
-            <a href="#stats" class="block px-6 py-3 text-gray-700 hover:bg-red-500 hover:text-white">Stats</a>
-            <a href="#gallery" class="block px-6 py-3 text-gray-700 hover:bg-red-500 hover:text-white">Gallery</a>
-            <a href="#videos" class="block px-6 py-3 text-gray-700 hover:bg-red-500 hover:text-white">Videos</a>
-            <a href="#schedule" class="block px-6 py-3 text-gray-700 hover:bg-red-500 hover:text-white">Schedule</a>
-            <a href="#contact" class="block px-6 py-3 text-gray-700 hover:bg-red-500 hover:text-white">Contact</a>
-        </div>
+        <div id="mobile-menu" class="md:hidden hidden bg-white shadow-md"><a href="#about"
+                class="block px-6 py-3 text-gray-700 hover:bg-red-500 hover:text-white">About</a><a href="#awards"
+                class="block px-6 py-3 text-gray-700 hover:bg-red-500 hover:text-white">Awards</a><a href="#news"
+                class="block px-6 py-3 text-gray-700 hover:bg-red-500 hover:text-white">In the News</a><a href="#stats"
+                class="block px-6 py-3 text-gray-700 hover:bg-red-500 hover:text-white">Stats</a><a href="#gallery"
+                class="block px-6 py-3 text-gray-700 hover:bg-red-500 hover:text-white">Gallery</a><a href="#videos"
+                class="block px-6 py-3 text-gray-700 hover:bg-red-500 hover:text-white">Videos</a><a href="#schedule"
+                class="block px-6 py-3 text-gray-700 hover:bg-red-500 hover:text-white">Schedule</a><a href="#contact"
+                class="block px-6 py-3 text-gray-700 hover:bg-red-500 hover:text-white">Contact</a></div>
     </nav>
-
     <header class="hero-bg text-white relative">
         <div class="absolute inset-0 bg-black opacity-50"></div>
         <div class="container mx-auto px-6 py-20 md:py-32 text-center relative z-10">
             <h1 class="text-4xl md:text-6xl font-extrabold uppercase tracking-wider">Claire Gilbertson</h1>
             <p class="mt-4 text-xl md:text-2xl font-semibold">Class of 2027 | First Base & Corner Outfield</p>
-            <p class="mt-2 text-lg md:text-xl">Driven. Dedicated. Ready to Compete.</p>
-            <a href="#stats"
+            <p class="mt-2 text-lg md:text-xl">Driven. Dedicated. Ready to Compete.</p><a href="#stats"
                 class="mt-8 inline-block btn-primary font-bold py-3 px-8 rounded-lg text-lg uppercase shadow-md hover:shadow-xl transform hover:scale-105 transition-transform duration-300">View
                 Stats</a>
+            <button onclick="window.print()"
+                class="mt-8 ml-4 inline-block btn-secondary font-bold py-3 px-8 rounded-lg text-lg uppercase shadow-md hover:shadow-xl transform hover:scale-105 transition-transform duration-300">Download
+                Profile</button>
         </div>
     </header>
-
     <section id="about" class="py-16 bg-white">
         <div class="container mx-auto px-6">
             <h2 class="section-title text-3xl font-bold text-center mb-12 text-red-600">About Claire</h2>
             <div class="flex flex-col lg:flex-row items-center lg:space-x-12">
                 <div class="lg:w-1/3 mb-8 lg:mb-0 flex-shrink-0">
-                    <div class="player-card rounded-xl shadow-xl p-4 transform -rotate-2">
-                        <img src="./images/Headshot.jpg"
+                    <div class="player-card rounded-xl shadow-xl p-4 transform -rotate-2"><img loading="lazy"
+                            src="./images/Headshot.jpg"
                             alt="Claire Gilbertson - Class of 2027 First Base and Outfield Recruit"
                             class="rounded-lg shadow-lg"
                             onerror="this.src='https://placehold.co/400x500/E2E8F0/4A5568?text=Photo+Error';">
@@ -273,77 +348,126 @@
                             <p class="text-red-600 font-semibold">#29</p>
                         </div>
                         <div class="mt-4 border-t border-gray-300 pt-3 text-sm">
-                            <p class="flex justify-between"><strong>Position:</strong> <span>1B, OF</span></p>
-                            <p class="flex justify-between"><strong>Grad Year:</strong> <span>2027</span></p>
-                            <p class="flex justify-between"><strong>Height:</strong> <span>5'11"</span></p>
+                            <p class="flex justify-between"><strong>Position: </strong><span>1B, OF</span></p>
+                            <p class="flex justify-between"><strong>Grad Year:</strong><span>2027</span></p>
+                            <p class="flex justify-between"><strong>Height:</strong><span>5'11"</span></p>
                         </div>
                     </div>
                 </div>
                 <div class="lg:w-2/3 text-lg">
                     <p class="mb-4">Claire Gilbertson is a dedicated and passionate softball player aiming to compete at
-                        the collegiate level. Born on <strong class="text-red-500">June 19, 2009</strong>, and
-                        graduating in <strong class="text-red-500">2027</strong>, she is entering her junior year of
-                        high school in the fall of 2025.</p>
+                        the collegiate level. Born on <strong class="text-red-500">June 19,
+                            2009</strong>,
+                        and graduating in <strong class="text-red-500">2027</strong>,
+                        she is entering her junior year of high school in the fall of 2025.</p>
                     <p class="mb-4">Standing at <strong class="text-red-500">5'11"</strong>, Claire primarily plays
-                        <strong class="text-red-500">First Base</strong>, bringing a strong defensive presence to the
-                        infield. She also excels as a <strong class="text-red-500">Corner Outfielder</strong>,
+                        <strong class="text-red-500">First Base</strong>,
+                        bringing a strong defensive presence to the infield. She also excels as a <strong
+                            class="text-red-500">Corner Outfielder</strong>,
                         showcasing a powerful throwing arm.
                     </p>
-                    <p class="mb-4">Her journey in softball began at age 7, and she has been playing competitive
-                        softball since age 10, continually developing her skills and game IQ.</p>
-                    <p class="mb-4">On offense, Claire is primarily a <strong class="text-red-500">line drive gap-to-gap
-                            hitter</strong>. She is actively working on her <strong class="text-red-500">power swing to
-                            increase slugging potential</strong> and is also focused on improving her <strong
+                    <p class="mb-4">Her journey in softball began at age 7,
+                        and she has been playing competitive softball since age 10,
+                        continually developing her skills and game IQ.</p>
+                    <p class="mb-4">On offense,
+                        Claire is primarily a <strong class="text-red-500">line drive gap-to-gap hitter</strong>. She is
+                        actively working on her <strong class="text-red-500">power swing to increase slugging
+                            potential</strong> and is also focused on improving her <strong
                             class="text-red-500">agility</strong> for enhanced performance on both sides of the ball.
                     </p>
-                    <p class="mb-4">Academically, Claire is interested in <strong class="text-red-500">Science, Biology,
-                            and Psychology</strong>. Off the field, she enjoys <strong class="text-red-500">fishing,
-                            hunting, reading, swimming, and spending quality time with friends and family</strong>.</p>
+                    <p class="mb-4">Academically,
+                        Claire is interested in <strong class="text-red-500">Science,
+                            Biology,
+                            and Psychology</strong>. Off the field,
+                        she enjoys <strong class="text-red-500">fishing,
+                            hunting,
+                            reading,
+                            swimming,
+                            and spending quality time with friends and family</strong>.</p>
                     <p class="font-semibold">Claire is committed to her growth as a player and is eager to contribute
                         her talent and hard work to a college softball program.</p>
                 </div>
             </div>
         </div>
     </section>
+    <!--
+    <section id="testimonials" class="py-16 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="section-title text-3xl font-bold text-center mb-12 text-red-600">Coach Testimonials</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
 
+    <div class="bg-gray-50 p-6 rounded-lg shadow-md relative"><svg class="w-10 h-10 text-red-200 absolute top-4 left-4"
+            fill="currentColor" viewBox="0 0 24 24">
+            <path
+                d="M14.017 21L14.017 18C14.017 16.896 14.912 16 16.017 16H19.017C19.569 16 20.017 15.552 20.017 15V9C20.017 8.448 19.569 8 19.017 8H15.017C14.465 8 14.017 8.448 14.017 9V11C14.017 11.552 13.569 12 13.017 12H12.017V5H22.017V15C22.017 18.314 19.331 21 16.017 21H14.017ZM5.01697 21L5.01697 18C5.01697 16.896 5.91297 16 7.01697 16H10.017C10.569 16 11.017 15.552 11.017 15V9C11.017 8.448 10.569 8 10.017 8H6.01697C5.46497 8 5.01697 8.448 5.01697 9V11C5.01697 11.552 4.56897 12 4.01697 12H3.01697V5H13.017V15C13.017 18.314 10.331 21 7.01697 21H5.01697Z" />
+        </svg>
+        <div class="relative z-10 pt-8">
+            <p class="text-gray-700 italic mb-4">"Claire is one of the most coachable athletes I've
+                had the pleasure of working with. Her dedication to improving her swing and her
+                defensive skills at first base is unmatched. She brings a positive attitude to every
+                practice and game." </p>
+            <div class="flex items-center">
+                <div class="font-semibold text-gray-900">Coach Sarah Johnson</div><span
+                    class="mx-2 text-gray-400">|</span>
+                <div class="text-sm text-gray-500">Head Coach,
+                    Mequon Mayhem</div>
+            </div>
+        </div>
+    </div>
+    <div class="bg-gray-50 p-6 rounded-lg shadow-md relative"><svg class="w-10 h-10 text-red-200 absolute top-4 left-4"
+            fill="currentColor" viewBox="0 0 24 24">
+            <path
+                d="M14.017 21L14.017 18C14.017 16.896 14.912 16 16.017 16H19.017C19.569 16 20.017 15.552 20.017 15V9C20.017 8.448 19.569 8 19.017 8H15.017C14.465 8 14.017 8.448 14.017 9V11C14.017 11.552 13.569 12 13.017 12H12.017V5H22.017V15C22.017 18.314 19.331 21 16.017 21H14.017ZM5.01697 21L5.01697 18C5.01697 16.896 5.91297 16 7.01697 16H10.017C10.569 16 11.017 15.552 11.017 15V9C11.017 8.448 10.569 8 10.017 8H6.01697C5.46497 8 5.01697 8.448 5.01697 9V11C5.01697 11.552 4.56897 12 4.01697 12H3.01697V5H13.017V15C13.017 18.314 10.331 21 7.01697 21H5.01697Z" />
+        </svg>
+        <div class="relative z-10 pt-8">
+            <p class="text-gray-700 italic mb-4">"A true team player who leads by example.
+                Claire's ability to drive the ball into the gaps has been a game-changer for our
+                offense. She is a student of the game and always looking for ways to get
+                better." </p>
+            <div class="flex items-center">
+                <div class="font-semibold text-gray-900">Coach Mike Thompson</div><span
+                    class="mx-2 text-gray-400">|</span>
+                <div class="text-sm text-gray-500">Varsity Coach,
+                    Homestead High School</div>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+    </section>
+    -->
     <section id="awards" class="py-16 bg-gray-50">
         <div class="container mx-auto px-6">
             <h2 class="section-title text-3xl font-bold text-center mb-12 text-red-600">Awards & Recognition</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <div class="bg-white p-6 rounded-lg shadow-md flex items-center space-x-4">
-                    <div class="flex-shrink-0">
-                        <svg class="w-12 h-12 text-red-500" xmlns="http://www.w3.org/2000/svg" fill="none"
-                            viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <div class="flex-shrink-0"><svg class="w-12 h-12 text-red-500" xmlns="http://www.w3.org/2000/svg"
+                            fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
-                        </svg>
-                    </div>
+                        </svg></div>
                     <div>
                         <h3 class="font-semibold text-lg">Second Team All-Conference</h3>
                         <p class="text-gray-600">Softball - 2025 Season</p>
                     </div>
                 </div>
                 <div class="bg-white p-6 rounded-lg shadow-md flex items-center space-x-4">
-                    <div class="flex-shrink-0">
-                        <svg class="w-12 h-12 text-red-500" xmlns="http://www.w3.org/2000/svg" fill="none"
-                            viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <div class="flex-shrink-0"><svg class="w-12 h-12 text-red-500" xmlns="http://www.w3.org/2000/svg"
+                            fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068M15.75 21H9a2.25 2.25 0 01-2.25-2.25V5.25A2.25 2.25 0 019 3h6.75A2.25 2.25 0 0118 5.25v8.25A2.25 2.25 0 0115.75 21z" />
-                        </svg>
-                    </div>
+                        </svg></div>
                     <div>
                         <h3 class="font-semibold text-lg">Varsity Swimmer</h3>
                         <p class="text-gray-600">3x Sectional Competitor</p>
                     </div>
                 </div>
                 <div class="bg-white p-6 rounded-lg shadow-md flex items-center space-x-4">
-                    <div class="flex-shrink-0">
-                        <svg class="w-12 h-12 text-red-500" xmlns="http://www.w3.org/2000/svg" fill="none"
-                            viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <div class="flex-shrink-0"><svg class="w-12 h-12 text-red-500" xmlns="http://www.w3.org/2000/svg"
+                            fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0l15.482 0m0 0l15.482 0" />
-                        </svg>
-                    </div>
+                        </svg></div>
                     <div>
                         <h3 class="font-semibold text-lg">Honor Roll Student</h3>
                         <p class="text-gray-600">Maintaining High Academic Standing</p>
@@ -352,51 +476,53 @@
             </div>
         </div>
     </section>
-
     <section id="news" class="py-16 bg-white">
         <div class="container mx-auto px-6">
             <h2 class="section-title text-3xl font-bold text-center mb-12 text-red-600">In the News</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <div
                     class="bg-gray-50 rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300 flex flex-col">
-                    <img src="https://bloximages.newyork1.vip.townnews.com/gmtoday.com/content/tncms/assets/v3/editorial/4/72/472f2562-0642-4356-8f1b-e2330ff0e6fc/682f0ec3d3fe5.image.jpg?resize=557%2C500"
+                    <img loading="lazy"
+                        src="https://bloximages.newyork1.vip.townnews.com/gmtoday.com/content/tncms/assets/v3/editorial/4/72/472f2562-0642-4356-8f1b-e2330ff0e6fc/682f0ec3d3fe5.image.jpg?resize=557%2C500"
                         class="w-full h-48 object-cover"
                         alt="Claire Gilbertson batting for Homestead High School Softball"
                         onerror="this.src='https://placehold.co/600x400/D1D5DB/4B5563?text=Photo+Error';">
                     <div class="p-6 flex flex-col flex-grow">
-                        <p class="text-sm text-gray-500 mb-2">Ozaukee County News Graphic | May 22nd, 2025</p>
-                        <h3 class="font-bold text-xl mb-3 text-gray-800 flex-grow">Homestead has a ‘flair for theatrics’
-                        </h3>
+                        <p class="text-sm text-gray-500 mb-2">Ozaukee County News Graphic | May 22nd,
+                            2025</p>
+                        <h3 class="font-bold text-xl mb-3 text-gray-800 flex-grow">Homestead has a ‘flair for
+                            theatrics’ </h3>
                         <p class="text-gray-600 mb-4">Homestead was actually down to its final strike twice in the
-                            seventh inning. The first time came with two outs and nobody on, when Claire Gilbertson
-                            laced a sharp single to keep the game going.</p>
-                        <a href="https://www.gmtoday.com/news_graphic/sports/homestead-has-a-flair-for-theatrics/article_77626849-e504-59c3-beb8-baa43f59e383.html"
+                            seventh inning. The first time came with two outs and nobody on,
+                            when Claire Gilbertson laced a sharp single to keep the game going.</p><a
+                            href="https://www.gmtoday.com/news_graphic/sports/homestead-has-a-flair-for-theatrics/article_77626849-e504-59c3-beb8-baa43f59e383.html"
                             class="font-semibold text-red-600 hover:text-red-800 transition-colors duration-300 mt-auto">Read
-                            More &rarr;</a>
+                            More &rarr;
+                        </a>
                     </div>
                 </div>
                 <div
                     class="bg-gray-50 rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300 flex flex-col">
-                    <img src="https://cdn1.sportngin.com/attachments/banner_graphic/e5d8-211829017/siteHeader_r5.jpg"
+                    <img loading="lazy"
+                        src="https://cdn1.sportngin.com/attachments/banner_graphic/e5d8-211829017/siteHeader_r5.jpg"
                         class="w-full h-48 object-cover" alt="North Shore Conference Softball 2025 Banner"
                         onerror="this.src='https://placehold.co/600x400/D1D5DB/4B5563?text=Photo+Error';">
                     <div class="p-6 flex flex-col flex-grow">
                         <p class="text-sm text-gray-500 mb-2">North Shore Conference</p>
                         <h3 class="font-bold text-xl mb-3 text-gray-800 flex-grow">2025 Softball</h3>
-                        <p class="text-gray-600 mb-4">Claire Gilbertson | Homestead | 2nd Team All-Conference</p>
-                        <a href="https://www.northshoreconference.com/page/show/8999257-2025-softball"
+                        <p class="text-gray-600 mb-4">Claire Gilbertson | Homestead | 2nd Team All-Conference</p><a
+                            href="https://www.northshoreconference.com/page/show/8999257-2025-softball"
                             class="font-semibold text-red-600 hover:text-red-800 transition-colors duration-300 mt-auto">Read
-                            More &rarr;</a>
+                            More &rarr;
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
     <section id="stats" class="py-16 bg-white">
         <div class="container mx-auto px-6">
             <h2 class="section-title text-3xl font-bold text-center mb-10 text-red-600">Performance Statistics</h2>
-
             <div class="mb-12">
                 <h3 class="text-2xl font-semibold text-center text-gray-700 mb-6">Combined Key Stats (High School &
                     Club)</h3>
@@ -415,18 +541,14 @@
                     </div>
                 </div>
             </div>
-
-            <div class="accordion-item bg-white rounded-xl shadow-lg">
-                <button
+            <div class="accordion-item bg-white rounded-xl shadow-lg"><button
                     class="accordion-title flex justify-between items-center w-full p-6 text-xl font-semibold text-gray-700 hover:bg-gray-50 focus:outline-none rounded-t-xl"
-                    aria-expanded="false">
-                    <span>Mequon Mayhem Club Stats <span class="text-base font-normal">Fall 2025</span></span>
-                    <svg class="w-6 h-6 transform rotate-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg">
+                    aria-expanded="false"><span>Mequon Mayhem Club Stats <span class="text-base font-normal">Fall
+                            2025</span></span><svg class="w-6 h-6 transform rotate-0" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
                         </path>
-                    </svg>
-                </button>
+                    </svg></button>
                 <div class="accordion-content">
                     <div class="px-6 pb-6 pt-0 overflow-x-auto">
                         <table class="min-w-full divide-y divide-gray-200 stats-table">
@@ -506,18 +628,14 @@
                     </div>
                 </div>
             </div>
-
-            <div class="accordion-item bg-white rounded-xl shadow-lg">
-                <button
+            <div class="accordion-item bg-white rounded-xl shadow-lg"><button
                     class="accordion-title flex justify-between items-center w-full p-6 text-xl font-semibold text-gray-700 hover:bg-gray-50 focus:outline-none rounded-t-xl"
-                    aria-expanded="false">
-                    <span>Mequon Mayhem Club Stats <span class="text-base font-normal">Summer 2025</span></span>
-                    <svg class="w-6 h-6 transform rotate-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg">
+                    aria-expanded="false"><span>Mequon Mayhem Club Stats <span class="text-base font-normal">Summer
+                            2025</span></span><svg class="w-6 h-6 transform rotate-0" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
                         </path>
-                    </svg>
-                </button>
+                    </svg></button>
                 <div class="accordion-content">
                     <div class="px-6 pb-6 pt-0 overflow-x-auto">
                         <table class="min-w-full divide-y divide-gray-200 stats-table">
@@ -597,18 +715,14 @@
                     </div>
                 </div>
             </div>
-
-            <div class="accordion-item bg-white rounded-xl shadow-lg">
-                <button
+            <div class="accordion-item bg-white rounded-xl shadow-lg"><button
                     class="accordion-title flex justify-between items-center w-full p-6 text-xl font-semibold text-gray-700 hover:bg-gray-50 focus:outline-none rounded-t-xl"
-                    aria-expanded="false">
-                    <span>2025 High School Season Stats</span>
-                    <svg class="w-6 h-6 transform rotate-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    aria-expanded="false"><span>2025 High School Season Stats</span><svg
+                        class="w-6 h-6 transform rotate-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
                         </path>
-                    </svg>
-                </button>
+                    </svg></button>
                 <div class="accordion-content">
                     <div class="px-6 pb-6 pt-0 overflow-x-auto">
                         <table class="min-w-full divide-y divide-gray-200 stats-table">
@@ -688,19 +802,14 @@
                     </div>
                 </div>
             </div>
-
-            <div class="accordion-item bg-white rounded-xl shadow-lg">
-                <button
+            <div class="accordion-item bg-white rounded-xl shadow-lg"><button
                     class="accordion-title flex justify-between items-center w-full p-6 text-xl font-semibold text-gray-700 hover:bg-gray-50 focus:outline-none rounded-t-xl"
-                    aria-expanded="false">
-                    <span>Mequon Mayhem Club Stats <span class="text-base font-normal">Fall/Winter
-                            2024</span></span>
-                    <svg class="w-6 h-6 transform rotate-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg">
+                    aria-expanded="false"><span>Mequon Mayhem Club Stats <span class="text-base font-normal">Fall/Winter
+                            2024</span></span><svg class="w-6 h-6 transform rotate-0" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
                         </path>
-                    </svg>
-                </button>
+                    </svg></button>
                 <div class="accordion-content">
                     <div class="px-6 pb-6 pt-0 overflow-x-auto">
                         <table class="min-w-full divide-y divide-gray-200 stats-table">
@@ -785,59 +894,59 @@
             available upon request.</p>
         </div>
     </section>
-
     <section id="gallery" class="py-16 bg-gray-50">
         <div class="container mx-auto px-6 text-center">
             <h2 class="section-title text-3xl font-bold mb-12 text-red-600">Photo Gallery</h2>
             <p class="text-lg mb-8">Check out action shots and more in Claire's regularly updated photo album.</p>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
-                <div class="gallery-item rounded-lg overflow-hidden shadow-lg relative">
-                    <img src="./images/Hit.jpg" alt="Claire Gilbertson hitting a line drive"
+                <div class="gallery-item rounded-lg overflow-hidden shadow-lg relative"><img loading="lazy"
+                        src="./images/Hit.jpg" alt="Claire Gilbertson hitting a line drive"
                         class="w-full h-full object-cover"
-                        onerror="this.src='https://placehold.co/600x400/D1D5DB/4B5563?text=Photo+Error';">
-                </div>
-                <div class="gallery-item rounded-lg overflow-hidden shadow-lg relative">
-                    <img src="./images/TeamCentered.jpg" alt="Claire Gilbertson with Mequon Mayhem teammates"
+                        onerror="this.src='https://placehold.co/600x400/D1D5DB/4B5563?text=Photo+Error';"></div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-lg relative"><img loading="lazy"
+                        src="./images/TeamCentered.jpg" alt="Claire Gilbertson with Mequon Mayhem teammates"
                         class="w-full h-full object-cover"
-                        onerror="this.src='https://placehold.co/600x400/D1D5DB/4B5563?text=Photo+Error';">
-                </div>
-                <div class="gallery-item rounded-lg overflow-hidden shadow-lg relative">
-                    <img src="./images/Regionals.jpg" alt="Claire Gilbertson celebrating Regionals win"
+                        onerror="this.src='https://placehold.co/600x400/D1D5DB/4B5563?text=Photo+Error';"></div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-lg relative"><img loading="lazy"
+                        src="./images/Regionals.jpg" alt="Claire Gilbertson celebrating Regionals win"
                         class="w-full h-full object-cover"
-                        onerror="this.src='https://placehold.co/600x400/D1D5DB/4B5563?text=Photo+Error';">
-                </div>
-            </div>
-            <a href="YOUR_GOOGLE_PHOTOS_ALBUM_LINK_HERE" target="_blank" rel="noopener noreferrer"
-                class="btn-primary font-bold py-3 px-8 rounded-lg text-lg uppercase shadow-md hover:shadow-xl transform hover:scale-105 transition-transform duration-300">
-                View Full Photo Album
-            </a>
+                        onerror="this.src='https://placehold.co/600x400/D1D5DB/4B5563?text=Photo+Error';"></div>
+            </div><a href="YOUR_GOOGLE_PHOTOS_ALBUM_LINK_HERE" target="_blank" rel="noopener noreferrer"
+                class="btn-primary font-bold py-3 px-8 rounded-lg text-lg uppercase shadow-md hover:shadow-xl transform hover:scale-105 transition-transform duration-300">View
+                Full Photo Album </a>
         </div>
     </section>
 
     <section id="videos" class="py-16 bg-white">
         <div class="container mx-auto px-6 text-center">
-            <h2 class="section-title text-3xl font-bold mb-12 text-red-600">Video Highlights</h2>
-            <p class="text-lg mb-8">See Claire in action with game footage and skills videos.</p>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="aspect-[16/9] rounded-lg overflow-hidden shadow-xl"><iframe
-                        src="https://www.youtube.com/embed/UqAoONBjlQU" frameborder="0"
+            <h2 class="section-title text-3xl font-bold mb-12 text-red-600">Highlight Videos</h2>
+            <p class="text-lg mb-8">Watch highlights and game footage.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <div class="aspect-w-16 aspect-h-9">
+                    <iframe class="w-full h-64 rounded-lg shadow-lg" src="https://www.youtube.com/embed/placeholder1"
+                        title="Highlight Video 1" frameborder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen class="w-full h-full"></iframe></div>
-                <div class="aspect-[16/9] rounded-lg overflow-hidden shadow-xl"><iframe
-                        src="https://www.youtube.com/embed/VIDEO_ID_2" frameborder="0"
+                        allowfullscreen></iframe>
+                </div>
+                <div class="aspect-w-16 aspect-h-9">
+                    <iframe class="w-full h-64 rounded-lg shadow-lg" src="https://www.youtube.com/embed/placeholder2"
+                        title="Highlight Video 2" frameborder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen class="w-full h-full"></iframe></div>
+                        allowfullscreen></iframe>
+                </div>
             </div>
-            <p class="mt-8 text-sm text-gray-500">More videos available on request.</p>
+            <div class="mt-12">
+                <a href="#"
+                    class="btn-secondary font-bold py-3 px-8 rounded-lg text-lg uppercase shadow-md hover:shadow-xl transform hover:scale-105 transition-transform duration-300">View
+                    More on YouTube</a>
+            </div>
         </div>
     </section>
-
     <section id="schedule" class="py-16 bg-gray-50">
         <div class="container mx-auto px-6">
             <h2 class="section-title text-3xl font-bold text-center mb-12 text-red-600">Tournament Schedule</h2>
-            <p class="text-lg text-center mb-10 text-gray-700">Come watch Claire play!</p>
+            <p class="text-lg text-center mb-10 text-gray-700">Come watch Claire play !</p>
             <div class="space-y-8 max-w-3xl mx-auto">
-
                 <div class="schedule-item bg-white p-4 rounded-lg shadow-md">
                     <div class="flex-shrink-0"><svg class="w-10 h-10 text-red-500" xmlns="http://www.w3.org/2000/svg"
                             fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
@@ -846,10 +955,11 @@
                         </svg></div>
                     <div>
                         <h3 class="text-xl font-semibold text-gray-800">Top-Tier Challenge Winter Tournament</h3>
-                        <p><strong>Dates:</strong> December 19-21, 2025 | <strong>Location:</strong> Rosemont, IL</p>
+                        <p><strong>Dates: </strong>December 19-21,
+                            2025 | <strong>Location:</strong>Rosemont,
+                            IL</p>
                     </div>
                 </div>
-
                 <div class="schedule-item bg-white p-4 rounded-lg shadow-md">
                     <div class="flex-shrink-0"><svg class="w-10 h-10 text-red-500" xmlns="http://www.w3.org/2000/svg"
                             fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
@@ -858,10 +968,11 @@
                         </svg></div>
                     <div>
                         <h3 class="text-xl font-semibold text-gray-800">Top-Tier Challenge Winter Tournament</h3>
-                        <p><strong>Dates:</strong> January 9-11, 2025 | <strong>Location:</strong> Rosemont, IL</p>
+                        <p><strong>Dates:</strong>January 9-11,
+                            2025 | <strong>Location:</strong>Rosemont,
+                            IL</p>
                     </div>
                 </div>
-
                 <div class="schedule-item bg-white p-4 rounded-lg shadow-md">
                     <div class="flex-shrink-0"><svg class="w-10 h-10 text-red-500" xmlns="http://www.w3.org/2000/svg"
                             fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
@@ -870,11 +981,11 @@
                         </svg></div>
                     <div>
                         <h3 class="text-xl font-semibold text-gray-800">USSSA Frozen Ropes</h3>
-                        <p><strong>Dates:</strong> January 30-31, 2025 | <strong>Location:</strong> Bettendorf, IA
-                        </p>
+                        <p><strong>Dates:</strong>January 30-31,
+                            2025 | <strong>Location:</strong>Bettendorf,
+                            IA </p>
                     </div>
                 </div>
-
                 <div class="schedule-item extra-schedule-item hidden bg-white p-4 rounded-lg shadow-md">
                     <div class="flex-shrink-0"><svg class="w-10 h-10 text-red-500" xmlns="http://www.w3.org/2000/svg"
                             fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
@@ -883,19 +994,18 @@
                         </svg></div>
                     <div>
                         <h3 class="text-xl font-semibold text-gray-800">USSSA High School Warm Up</h3>
-                        <p><strong>Dates:</strong> February 27-28, 2025 | <strong>Location:</strong> Bettendorf, IA
+                        <p><strong>Dates:</strong>February 27-28, 2025 | <strong>Location:</strong> Bettendorf, IA
                         </p>
                     </div>
                 </div>
-
                 <button id="toggleScheduleButton"
                     class="mt-8 btn-secondary font-semibold py-2 px-6 rounded-lg text-base shadow-md hover:shadow-lg transform hover:scale-105 transition-transform duration-300 mx-auto block">Show
                     More</button>
             </div>
             <p class="mt-8 text-sm text-gray-500 text-center">Please confirm game times and field locations with the
                 respective tournament organizers.</p>
+        </div>
     </section>
-
 
     <section id="contact" class="py-16 bg-white">
         <div class="container mx-auto px-6 text-center">
@@ -907,14 +1017,22 @@
 
     <footer class="bg-gray-800 text-white py-8 text-center">
         <div class="container mx-auto px-6">
-            <p>© <span id="currentYear"></span> Claire Gilbertson Softball. All Rights Reserved.</p>
+            <p>&copy; <span id="currentYear"></span> Claire Gilbertson Softball. All Rights Reserved.</p>
         </div>
     </footer>
 
+    <!-- Scroll to Top Button -->
+    <button id="scrollTopBtn" title="Go to top">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+        </svg>
+    </button>
+
     <script>
-        // --- Standard Page Interactivity ---
+        // --- Mobile Menu Logic ---
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
+
         if (mobileMenuButton && mobileMenu) {
             mobileMenuButton.addEventListener('click', () => {
                 mobileMenu.classList.toggle('hidden');
@@ -929,39 +1047,36 @@
                 }
                 const targetElement = document.querySelector(this.getAttribute('href'));
                 if (targetElement) {
-                    targetElement.scrollIntoView({ behavior: 'smooth' });
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
                 }
             });
         });
 
+        // --- Current Year Logic ---
         const currentYearElement = document.getElementById('currentYear');
         if (currentYearElement) {
             currentYearElement.textContent = new Date().getFullYear();
         }
 
         // --- Schedule "Show More" Logic ---
-        const scheduleContainer = document.querySelector('#schedule .space-y-8');
         const scheduleItems = document.querySelectorAll('.schedule-item');
         const extraScheduleItems = document.querySelectorAll('.extra-schedule-item');
         const toggleScheduleButton = document.getElementById('toggleScheduleButton');
         const initialVisibleCount = 3;
 
-        // Hide "Show More" button if there are 3 or fewer total items
         if (scheduleItems.length <= initialVisibleCount) {
             if (toggleScheduleButton) {
                 toggleScheduleButton.classList.add('hidden');
             }
         } else {
-            // Otherwise, show the button and manage the visibility of extra items
             if (toggleScheduleButton) {
                 toggleScheduleButton.classList.remove('hidden');
-
-                // Ensure extra items are hidden on load
                 extraScheduleItems.forEach(item => {
                     item.classList.add('hidden');
                 });
                 toggleScheduleButton.textContent = 'Show More';
-
                 toggleScheduleButton.addEventListener('click', () => {
                     extraScheduleItems.forEach(item => {
                         item.classList.toggle('hidden');
@@ -973,14 +1088,11 @@
 
         // --- Stats Accordion Logic ---
         const accordionItems = document.querySelectorAll('.accordion-item');
-
         accordionItems.forEach(item => {
             const button = item.querySelector('.accordion-title');
             const content = item.querySelector('.accordion-content');
             button.addEventListener('click', () => {
                 const isExpanded = button.getAttribute('aria-expanded') === 'true' || false;
-
-                // Close other open accordions
                 accordionItems.forEach(otherItem => {
                     const otherButton = otherItem.querySelector('.accordion-title');
                     const otherContent = otherItem.querySelector('.accordion-content');
@@ -990,13 +1102,12 @@
                         otherContent.classList.remove('active');
                     }
                 });
-
-                // Toggle current accordion
                 button.setAttribute('aria-expanded', !isExpanded);
                 button.classList.toggle('active');
                 content.classList.toggle('active');
             });
         });
+
         // --- Stats Calculation Logic ---
         function updateCombinedStats() {
             const tables = document.querySelectorAll('.stats-table');
@@ -1005,16 +1116,14 @@
             let totalDoubles = 0;
             let totalSingles = 0;
             let totalHR = 0;
-            let totalWalks = 0; // Derived
+            let totalWalks = 0;
 
             tables.forEach(table => {
                 const rows = table.querySelectorAll('tbody tr');
                 let ab = 0, hits = 0, doubles = 0, singles = 0, hr = 0, obp = 0;
-
                 rows.forEach(row => {
                     const category = row.cells[0].innerText.trim();
                     const value = parseFloat(row.cells[1].innerText.trim());
-
                     if (category === 'At Bats') ab = value;
                     if (category === 'Hits') hits = value;
                     if (category === 'Doubles') doubles = value;
@@ -1022,33 +1131,25 @@
                     if (category === 'Home Runs') hr = value;
                     if (category === 'OBP') obp = value;
                 });
-
                 totalAB += ab;
                 totalHits += hits;
                 totalDoubles += doubles;
                 totalSingles += singles;
                 totalHR += hr;
-
-                // Derive walks: OBP = (H + W) / (AB + W) => W = (OBP * AB - H) / (1 - OBP)
                 if (obp < 1) {
                     const impliedWalks = (obp * ab - hits) / (1 - obp);
                     totalWalks += Math.round(impliedWalks);
                 }
             });
 
-            // Calculate Combined Stats
             const combinedAvg = totalAB > 0 ? (totalHits / totalAB).toFixed(3).substring(1) : ".000";
-
             const totalTriples = totalHits - (totalSingles + totalDoubles + totalHR);
             const totalBases = totalSingles + (2 * totalDoubles) + (3 * totalTriples) + (4 * totalHR);
             const combinedSlg = totalAB > 0 ? totalBases / totalAB : 0;
-
             const totalPA = totalAB + totalWalks;
             const combinedObp = totalPA > 0 ? (totalHits + totalWalks) / totalPA : 0;
-
             const combinedOps = (combinedObp + combinedSlg).toFixed(3).replace(/^0+/, '');
 
-            // Update DOM
             const avgEl = document.getElementById('combined-avg');
             const opsEl = document.getElementById('combined-ops');
             const doublesEl = document.getElementById('combined-doubles');
@@ -1058,8 +1159,26 @@
             if (doublesEl) doublesEl.innerText = totalDoubles;
         }
 
-        // Run on load
         document.addEventListener('DOMContentLoaded', updateCombinedStats);
+
+        // --- Scroll to Top Logic ---
+        const scrollTopBtn = document.getElementById("scrollTopBtn");
+        window.onscroll = function () {
+            scrollFunction()
+        };
+        function scrollFunction() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                scrollTopBtn.style.display = "block";
+            } else {
+                scrollTopBtn.style.display = "none";
+            }
+        }
+        scrollTopBtn.addEventListener('click', function () {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
     </script>
 </body>
 
