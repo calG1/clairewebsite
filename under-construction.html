@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Under Construction | Claire Gilbertson</title>
+    <meta name="description" content="This page is currently under construction. Check back soon for updates!">
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="icon" type="image/x-icon" href="./images/favicon.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .nav-link {
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: #EF4444;
+        }
+
+        .btn-primary {
+            background-color: #DC2626;
+            color: white;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #B91C1C;
+        }
+    </style>
+</head>
+
+<body class="flex flex-col min-h-screen">
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold text-red-600">Claire Gilbertson</a>
+            <div class="hidden md:flex space-x-4">
+                <a href="index.html#about" class="nav-link text-gray-700 font-semibold">About</a>
+                <a href="index.html#awards" class="nav-link text-gray-700 font-semibold">Awards</a>
+                <a href="index.html#news" class="nav-link text-gray-700 font-semibold">In the News</a>
+                <a href="index.html#stats" class="nav-link text-gray-700 font-semibold">Stats</a>
+                <a href="index.html#gallery" class="nav-link text-gray-700 font-semibold">Gallery</a>
+                <a href="index.html#videos" class="nav-link text-gray-700 font-semibold">Videos</a>
+                <a href="index.html#schedule" class="nav-link text-gray-700 font-semibold">Schedule</a>
+                <a href="index.html#contact" class="nav-link text-gray-700 font-semibold">Contact</a>
+            </div>
+            <!-- Mobile menu button (simplified for this page, redirects to main) -->
+            <div class="md:hidden">
+                <a href="index.html" class="text-gray-700 focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6">
+                        </path>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow flex items-center justify-center bg-gray-50 px-6">
+        <div class="text-center max-w-lg">
+            <div class="mb-8 flex justify-center">
+                <div class="bg-red-100 p-6 rounded-full">
+                    <svg class="w-20 h-20 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z">
+                        </path>
+                    </svg>
+                </div>
+            </div>
+            <h1 class="text-4xl font-extrabold text-gray-900 mb-4">Under Construction</h1>
+            <p class="text-xl text-gray-600 mb-8">We're working hard to bring you this content. Check back soon for
+                updates!</p>
+            <a href="index.html"
+                class="inline-block btn-primary font-bold py-3 px-8 rounded-lg text-lg uppercase shadow-md hover:shadow-xl transform hover:scale-105 transition-transform duration-300">
+                Return Home
+            </a>
+        </div>
+    </main>
+
+    <footer class="bg-gray-800 text-white py-8 text-center">
+        <div class="container mx-auto px-6">
+            <p>&copy; <span id="currentYear"></span> Claire Gilbertson Softball. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // --- Current Year Logic ---
+        const currentYearElement = document.getElementById('currentYear');
+        if (currentYearElement) {
+            currentYearElement.textContent = new Date().getFullYear();
+        }
+    </script>
+</body>
+
+</html>
