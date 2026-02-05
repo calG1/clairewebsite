@@ -534,6 +534,20 @@
                     </div>
                 </div>
 
+                <div
+                    class="bg-gray-50 rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300 flex flex-col">
+                    <div class="p-6 flex flex-col flex-grow">
+                        <p class="text-sm text-gray-500 mb-2">February 1st,
+                            2026</p>
+                        <h3 class="font-bold text-xl mb-3 text-gray-800 flex-grow">USSSA Frozen Ropes Tournament 3rd
+                            Place Finish</h3>
+                        <p class="text-gray-600 mb-4">Mayhem finished 3rd out of 21 teams going 4-1 on the weekend.
+                            Claire
+                            had a walk off single to right on a 3-1 pitch with two outs advancing the team to the final
+                            four.</p>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
@@ -554,6 +568,22 @@
                     </div>
                     <div class="stat-card p-8 rounded-xl">
                         <h4 class="text-4xl font-bold text-red-500" id="combined-doubles">0</h4>
+                        <p class="text-gray-600 text-lg mt-2">Doubles</p>
+                    </div>
+                </div>
+
+                <h3 class="text-2xl font-semibold text-center text-gray-700 mt-12 mb-6">Combined High School Stats</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                    <div class="stat-card p-8 rounded-xl">
+                        <h4 class="text-4xl font-bold text-red-500" id="hs-avg">.000</h4>
+                        <p class="text-gray-600 text-lg mt-2">Batting Average</p>
+                    </div>
+                    <div class="stat-card p-8 rounded-xl">
+                        <h4 class="text-4xl font-bold text-red-500" id="hs-ops">.000</h4>
+                        <p class="text-gray-600 text-lg mt-2">OPS</p>
+                    </div>
+                    <div class="stat-card p-8 rounded-xl">
+                        <h4 class="text-4xl font-bold text-red-500" id="hs-doubles">0</h4>
                         <p class="text-gray-600 text-lg mt-2">Doubles</p>
                     </div>
                 </div>
@@ -806,15 +836,15 @@
             </div>
             <div class="accordion-item bg-white rounded-xl shadow-lg"><button
                     class="accordion-title flex justify-between items-center w-full p-6 text-xl font-semibold text-gray-700 hover:bg-gray-50 focus:outline-none rounded-t-xl"
-                    aria-expanded="false"><span>2025 High School Season Stats</span><svg
-                        class="w-6 h-6 transform rotate-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg">
+                    aria-expanded="false"><span>High School Stats <span class="text-base font-normal">Spring
+                            2025</span></span><svg class="w-6 h-6 transform rotate-0" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
                         </path>
                     </svg></button>
                 <div class="accordion-content">
                     <div class="px-6 pb-6 pt-0 overflow-x-auto">
-                        <table class="min-w-full divide-y divide-gray-200 stats-table">
+                        <table class="min-w-full divide-y divide-gray-200 stats-table stats-table-hs">
                             <thead class="bg-gray-100">
                                 <tr>
                                     <th
@@ -886,6 +916,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="accordion-item bg-white rounded-xl shadow-lg"><button
                     class="accordion-title flex justify-between items-center w-full p-6 text-xl font-semibold text-gray-700 hover:bg-gray-50 focus:outline-none rounded-t-xl"
                     aria-expanded="false"><span>Mequon Mayhem Club Stats <span class="text-base font-normal">Fall/Winter
@@ -967,10 +998,93 @@
                         </table>
                     </div>
                 </div>
+
+
+                <div class="accordion-item bg-white rounded-xl shadow-lg"><button
+                        class="accordion-title flex justify-between items-center w-full p-6 text-xl font-semibold text-gray-700 hover:bg-gray-50 focus:outline-none rounded-t-xl"
+                        aria-expanded="false"><span>High School Stats <span class="text-base font-normal">Spring
+                                2024</span></span><svg class="w-6 h-6 transform rotate-0" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
+                            </path>
+                        </svg></button>
+                    <div class="accordion-content">
+                        <div class="px-6 pb-6 pt-0 overflow-x-auto">
+                            <table class="min-w-full divide-y divide-gray-200 stats-table stats-table-hs">
+                                <thead class="bg-gray-100">
+                                    <tr>
+                                        <th
+                                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Statistic Category</th>
+                                        <th
+                                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Value</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white divide-y divide-gray-200">
+                                    <tr>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                            Batting Average</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">.512</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">OBP
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">.632</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">OPS
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">1.376</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                            Singles</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">14</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                            Doubles</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">6</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Games
+                                            Played</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">17</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">At
+                                            Bats</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">43</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Hits
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">22</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">RBIs
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">21</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Home
+                                            Runs</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">0</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Stolen
+                                            Bases</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">10</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-        <p class="mt-8 text-sm text-gray-500 text-center">More detailed stats or specific season breakdowns
-            available upon request.</p>
+            <p class="mt-8 text-sm text-gray-500 text-center">More detailed stats or specific season breakdowns
+                available upon request.</p>
         </div>
     </section>
     <section id="gallery" class="py-16 bg-gray-50">
@@ -1030,19 +1144,6 @@
             <p class="text-lg text-center mb-10 text-gray-700">Come watch Claire play!</p>
             <div class="space-y-8 max-w-3xl mx-auto">
 
-                <div class="schedule-item bg-white p-4 rounded-lg shadow-md">
-                    <div class="flex-shrink-0"><svg class="w-10 h-10 text-red-500" xmlns="http://www.w3.org/2000/svg"
-                            fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0h18M-4.5 12h22.5" />
-                        </svg></div>
-                    <div>
-                        <h3 class="text-xl font-semibold text-gray-800">USSSA Frozen Ropes</h3>
-                        <p><strong>Dates:</strong>January 30-31,
-                            2025 | <strong>Location:</strong>Bettendorf,
-                            IA </p>
-                    </div>
-                </div>
                 <div class="schedule-item bg-white p-4 rounded-lg shadow-md">
                     <div class="flex-shrink-0"><svg class="w-10 h-10 text-red-500" xmlns="http://www.w3.org/2000/svg"
                             fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
@@ -1166,8 +1267,8 @@
         });
 
         // --- Stats Calculation Logic ---
-        function updateCombinedStats() {
-            const tables = document.querySelectorAll('.stats-table');
+        function calculateStats(tableSelector) {
+            const tables = document.querySelectorAll(tableSelector);
             let totalAB = 0;
             let totalHits = 0;
             let totalDoubles = 0;
@@ -1207,13 +1308,38 @@
             const combinedObp = totalPA > 0 ? (totalHits + totalWalks) / totalPA : 0;
             const combinedOps = (combinedObp + combinedSlg).toFixed(3).replace(/^0+/, '');
 
+            return {
+                avg: combinedAvg,
+                ops: combinedOps,
+                doubles: totalDoubles
+            };
+        }
+
+        function updateCombinedStats() {
+            // Calculate and remove duplicate counts if a table has multiple classes
+            // Ideally selectors should be distinct or handled carefully.
+            // Here 'stats-table' applies to ALL Tables, so it calculates the TOTAL.
+            // 'stats-table-hs' applies ONLY to HS tables.
+
+            // 1. All Stats (Club + HS)
+            const allStats = calculateStats('.stats-table');
             const avgEl = document.getElementById('combined-avg');
             const opsEl = document.getElementById('combined-ops');
             const doublesEl = document.getElementById('combined-doubles');
 
-            if (avgEl) avgEl.innerText = combinedAvg;
-            if (opsEl) opsEl.innerText = combinedOps;
-            if (doublesEl) doublesEl.innerText = totalDoubles;
+            if (avgEl) avgEl.innerText = allStats.avg;
+            if (opsEl) opsEl.innerText = allStats.ops;
+            if (doublesEl) doublesEl.innerText = allStats.doubles;
+
+            // 2. High School Stats Only
+            const hsStats = calculateStats('.stats-table.stats-table-hs');
+            const hsAvgEl = document.getElementById('hs-avg');
+            const hsOpsEl = document.getElementById('hs-ops');
+            const hsDoublesEl = document.getElementById('hs-doubles');
+
+            if (hsAvgEl) hsAvgEl.innerText = hsStats.avg;
+            if (hsOpsEl) hsOpsEl.innerText = hsStats.ops;
+            if (hsDoublesEl) hsDoublesEl.innerText = hsStats.doubles;
         }
 
         document.addEventListener('DOMContentLoaded', updateCombinedStats);
